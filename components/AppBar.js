@@ -8,7 +8,7 @@ const AppBar = ({ navigation }) => {
     <View style={styles.container}>
         <View style={styles.headerContainer}>
             <Image
-                source={require('../assets/logo-quedu.png')}
+                source={require('../assets/Logo.png')}
                 style={styles.logo}
             />
             <View style={styles.titleContainer}>
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 45,
   },
   logo: {
-    width: 35,
-    height: 35,
+    width: 36,
+    height: 30,
   },
 
   titleContainer: {
