@@ -2,16 +2,16 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export const CourseName = () => {
+export const SectionName = ({color, icon1, icon2}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Curso</Text>
+      <Text style={[styles.text, { color: color }]}>Curso</Text>
       <View style={styles.pressableContainer}>
         <Pressable>
-          <Ionicons name="bookmark" size={18} color="#00A8E8" />
+          <Ionicons name={icon1} size={18} color={color} />
         </Pressable>
         <Pressable>
-          <Ionicons name="arrow-up" size={18} color="#00A8E8" />
+          <Ionicons name={icon2} size={18} color={color}/>
         </Pressable>
       </View>
     </View>
@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
     width: "20%"
   },
   text: {
-    fontSize: 12,
+    fontSize: 16,
     fontFamily: "Quicksand-SemiBold",
-    color: "#00A8E8",
   },
 });

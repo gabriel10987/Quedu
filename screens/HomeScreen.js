@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AppBar from '../components/AppBar';
-import { CourseName } from '../components/utils/CourseName';
+import { SectionName } from '../components/utils/SectionName';
+import colors from '../src/colors';
 
 const HomeScreen = ({ navigation }) => {
     return (
@@ -9,7 +10,7 @@ const HomeScreen = ({ navigation }) => {
             <AppBar navigation={navigation} />
             <View style={styles.content}>
                 <Text style={styles.title}>¡Bienvenido a la página de inicio!</Text>
-                <CourseName />
+                <SectionName color={colors.lightBlue} icon1={"bookmark"} icon2={"arrow-up"}/>
             </View>
         </View>
     );
