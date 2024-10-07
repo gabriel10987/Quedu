@@ -7,7 +7,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.container}>
             <AppBar navigation={navigation} />
             <View style={styles.content}>
-                <Text>¡Bienvenido a la página de inicio!</Text>
+                <Text style={styles.title}>¡Bienvenido a la página de inicio!</Text>
             </View>
         </View>
     );
@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    title: {
+      fontSize: 16,
+      fontFamily: 'Quicksand-Bold',
+    }
   });
   
   export default HomeScreen;

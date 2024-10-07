@@ -69,23 +69,25 @@ const styles = StyleSheet.create({
   q: {
     color: "#59B7E2",
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Quicksand-SemiBold",
   },
   restOfTitle: {
     color: "#C8D0CD",
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: "Quicksand-SemiBold",
   },
 
   welcomeText: {
     color: "#59B7E2",
     fontSize: 12,
     paddingHorizontal: 45,
+    fontFamily: "Quicksand-SemiBold",
   },
   promptText: {
     color: "#59B7E2",
     fontSize: 12,
     paddingHorizontal: 45,
+    fontFamily: "Quicksand-SemiBold",
   },
   wave: {
     position: "absolute",
