@@ -2,10 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export const SectionName = ({color, icon1, icon2}) => {
+export const SectionHeader = ({name, color, icon1, icon2}) => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, { color: color }]}>Curso</Text>
+      <Text style={[styles.text, { color: color }]}>{name}</Text>
       <View style={styles.pressableContainer}>
         <Pressable>
           <Ionicons name={icon1} size={18} color={color} />

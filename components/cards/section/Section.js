@@ -1,12 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import colors from "../../src/colors";
+import colors from "../../../src/colors";
+import { SectionHeader } from "./SectionHeader";
+import { List } from "./List";
 
-export const Quedu = () => {
+export const Section = ({name, color, icon1, icon2}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Nombre del Quedu</Text>
-      <Text style={styles.text}>02/04</Text>
+      <SectionHeader name={name} color={color} icon1={icon1} icon2={icon2}/>
+      <List />
     </View>
   );
 };
@@ -14,11 +16,11 @@ export const Quedu = () => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    gap: 20,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.lightBlue,
     minWidth: "85%",
     borderRadius: 4,
   },
