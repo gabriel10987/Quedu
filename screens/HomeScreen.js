@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AppBar from '../components/AppBar';
+import { CourseName } from '../components/utils/CourseName';
 
 const HomeScreen = ({ navigation }) => {
     return (
@@ -8,6 +9,7 @@ const HomeScreen = ({ navigation }) => {
             <AppBar navigation={navigation} />
             <View style={styles.content}>
                 <Text style={styles.title}>¡Bienvenido a la página de inicio!</Text>
+                <CourseName />
             </View>
         </View>
     );
