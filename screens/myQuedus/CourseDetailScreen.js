@@ -1,15 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AppBar from '../components/AppBar';
-import {Section} from '../components/cards/section/Section';
-import colors from '../src/colors';
 
-const HomeScreen = ({ navigation }) => {
+const CourseDetailScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <AppBar navigation={navigation} />
             <View style={styles.content}>
-                <Section name="Curso 1" color={colors.lightBlue} icon1="bookmark" icon2="arrow-up"/>
+                <Text>¡Bienvenido a la página de inicio!</Text>
             </View>
         </View>
     );
@@ -21,8 +19,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     content: {
-      display: 'flex',
-      flexDirection: 'column',
+      flex: 1,
+      justifyContent: 'center',
       alignItems: 'center',
     },
   });
