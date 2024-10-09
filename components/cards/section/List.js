@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import colors from "../../../src/colors";
 import { SectionCard } from "./SectionCard";
 
-export const List = () => {
+export const List = ({ data = [] }) => {
   return (
     <View style={styles.container}>
-      <SectionCard name= "course 1" date="02/23/32"/>
-      <SectionCard name= "course 1" date="02/23/32"/>
-      <SectionCard name= "course 1" date="02/23/32"/>
-      <SectionCard name= "course 1" date="02/23/32"/>
+      {data.map((item, index) => (
+        <SectionCard key={index} name={item.name} date={item.date} />
+      ))}
     </View>
   );
 };
@@ -22,6 +21,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     minWidth: "85%",
-    backgroundColor: colors.lightBlue,
+    backgroundColor: colors.white,
   },
 });
