@@ -1,0 +1,187 @@
+[
+    {
+        "_id": "1",
+        "name": "Programación",
+        "description": "Curso de programación básico",
+        "personalQuedus": [
+            {
+                "_id": "q1",
+                "name": "Introducción a la programación",
+                "created_at": "2024-05-01",
+                "questions": [
+                    {
+                        "_id": "q1-1",
+                        "question": "¿Qué es un algoritmo?",
+                        "feedback_correct": "Un algoritmo es un conjunto de pasos ordenados para realizar una tarea",
+                        "answers": [
+                            {
+                                "_id": "a1-1",
+                                "answer": "Conjunto de pasos ordenados para realizar una tarea",
+                                "correct": true
+                            },
+                            {
+                                "_id": "a1-2",
+                                "answer": "Conjunto de pasos desordenados para realizar una tarea",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+                        "_id": "q1-2",
+                        "question": "¿Qué lenguaje se usa para la programación web?",
+                        "feedback_correct": "JavaScript es el lenguaje principal para la programación web.",
+                        "answers": [
+                            {
+                                "_id": "a2-1",
+                                "answer": "Java",
+                                "correct": false
+                            },
+                            {
+                                "_id": "a2-2",
+                                "answer": "JavaScript",
+                                "correct": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "_id": "q2",
+                "name": "Fundamentos de matemáticas",
+                "created_at": "2024-06-01",
+                "questions": [
+                    {
+                        "_id": "q2-1",
+                        "question": "¿Qué es un número primo?",
+                        "feedback_correct": "Un número primo es un número natural mayor que 1 que no tiene divisores positivos más que 1 y él mismo.",
+                        "answers": [
+                            {
+                                "_id": "a3-1",
+                                "answer": "Un número divisible por 2",
+                                "correct": false
+                            },
+                            {
+                                "_id": "a3-2",
+                                "answer": "Un número que solo tiene dos divisores",
+                                "correct": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "_id": "q1",
+                "name": "Introducción a la programación",
+                "created_at": "2024-05-01",
+                "questions": [
+                    {
+                        "_id": "q1-1",
+                        "question": "¿Qué es un algoritmo?",
+                        "feedback_correct": "Un algoritmo es un conjunto de pasos ordenados para realizar una tarea",
+                        "answers": [
+                            {
+                                "_id": "a1-1",
+                                "answer": "Conjunto de pasos ordenados para realizar una tarea",
+                                "correct": true
+                            },
+                            {
+                                "_id": "a1-2",
+                                "answer": "Conjunto de pasos desordenados para realizar una tarea",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+                        "_id": "q1-2",
+                        "question": "¿Qué lenguaje se usa para la programación web?",
+                        "feedback_correct": "JavaScript es el lenguaje principal para la programación web.",
+                        "answers": [
+                            {
+                                "_id": "a2-1",
+                                "answer": "Java",
+                                "correct": false
+                            },
+                            {
+                                "_id": "a2-2",
+                                "answer": "JavaScript",
+                                "correct": true
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "_id": "q1",
+                "name": "Introducción a la programación",
+                "created_at": "2024-05-01",
+                "questions": [
+                    {
+                        "_id": "q1-1",
+                        "question": "¿Qué es un algoritmo?",
+                        "feedback_correct": "Un algoritmo es un conjunto de pasos ordenados para realizar una tarea",
+                        "answers": [
+                            {
+                                "_id": "a1-1",
+                                "answer": "Conjunto de pasos ordenados para realizar una tarea",
+                                "correct": true
+                            },
+                            {
+                                "_id": "a1-2",
+                                "answer": "Conjunto de pasos desordenados para realizar una tarea",
+                                "correct": false
+                            }
+                        ]
+                    },
+                    {
+                        "_id": "q1-2",
+                        "question": "¿Qué lenguaje se usa para la programación web?",
+                        "feedback_correct": "JavaScript es el lenguaje principal para la programación web.",
+                        "answers": [
+                            {
+                                "_id": "a2-1",
+                                "answer": "Java",
+                                "correct": false
+                            },
+                            {
+                                "_id": "a2-2",
+                                "answer": "JavaScript",
+                                "correct": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "2",
+        "name": "Matemáticas",
+        "description": "Curso de matemáticas para principiantes",
+        "personalQuedus": [
+            {
+                "_id": "q2",
+                "name": "Fundamentos de matemáticas",
+                "created_at": "2024-06-01",
+                "questions": [
+                    {
+                        "_id": "q2-1",
+                        "question": "¿Qué es un número primo?",
+                        "feedback_correct": "Un número primo es un número natural mayor que 1 que no tiene divisores positivos más que 1 y él mismo.",
+                        "answers": [
+                            {
+                                "_id": "a3-1",
+                                "answer": "Un número divisible por 2",
+                                "correct": false
+                            },
+                            {
+                                "_id": "a3-2",
+                                "answer": "Un número que solo tiene dos divisores",
+                                "correct": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
