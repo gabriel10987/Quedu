@@ -4,14 +4,13 @@ import colors from "../../src/colors";
 
 const CustomTextInput = ({value, onChangeText, placeholder = 'Escribir', borderColor = '#ccc', style }) => {
     return (
-        <View style={styles.inputContainer}>
+        <View style={[styles.inputContainer, style]}>
             <TextInput
-                style={[styles.input, {borderColor: borderColor, backgroundColor: colors.white, color: colors.darkBlue}, style]}
+                style={[styles.input, {borderColor: borderColor, color: colors.darkBlue}]}
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
                 placeholderTextColor={colors.gray}
-                backgroundColor={colors.white}
             />
         </View>
     );
@@ -19,13 +18,13 @@ const CustomTextInput = ({value, onChangeText, placeholder = 'Escribir', borderC
 
 const styles = StyleSheet.create({
     inputContainer: {
-        borderRadius: 4,
+        borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: {width:0, height:4},
         shadowOpacity:0.2,
-        shadowRadius:4,
+        shadowRadius:10,
         elevation:5,
-        marginBottom:30,
+        backgroundColor: colors.white,
     },
     input: {
         height: 50,
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         color: '#000',
         fontFamily: 'Quicksand-Regular',
+        width: '100%',
     },
 });
 

@@ -19,6 +19,7 @@ const CreateCourseScreen = ({navigation}) => {
                     onChangeText={setCourseName}
                     placeholder="Nombre del curso"
                     borderColor={colors.lightBlue}
+                    style={{ width: '60%' }}
                 />
 
                 <Button 
@@ -37,12 +38,15 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
     },
     content: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      height: '35%',
+      justifyContent: 'space-around',
+      alignItems: 'center',      
+      paddingTop: 20,
     },
     title: {
-        
+        fontSize: 16,
+        fontFamily: 'Quicksand-Regular',
+        color: colors.darkBlue,
     }
   }); 
   
