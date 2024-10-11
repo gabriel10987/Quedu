@@ -4,22 +4,16 @@ import colors from "../../../src/colors";
 
 export const SectionCard = ({name, date, onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.card}>
-      <View>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.date}>{date}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.text}>{date}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    padding: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 8,
-    marginBottom: 10,
-  },
   container: {
     display: "flex",
     flexDirection: "row",
@@ -33,5 +27,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 10,
     fontFamily: "Quicksand-SemiBold",
+    color: colors.darkBlueOpacity50,
   }
 });
