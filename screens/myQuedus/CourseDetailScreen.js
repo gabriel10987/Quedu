@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import AppBar from "../components/AppBar";
+import AppBar from "../../components/AppBar";
 
 const CourseDetailScreen = ({ navigation }) => {
   return (
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default CourseDetailScreen;
