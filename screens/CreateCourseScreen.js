@@ -26,7 +26,8 @@ const CreateCourseScreen = ({navigation}) => {
                     title="Crear curso" 
                     backgroundColor={colors.darkBlue} 
                     textColor={colors.white} 
-                    onPress={() => console.log('Creando curso...')}/>
+                    onPress={() => console.log('Creando curso...')}
+                />
             </View>
         </View>
     );

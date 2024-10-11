@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Alternative } from './Alternative';
 import colors from '../../../src/colors';
 
 
