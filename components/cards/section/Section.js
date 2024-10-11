@@ -19,10 +19,9 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "column",
-    gap: 20,
+    gap: 10,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    backgroundColor: colors.lightBlue,
     minWidth: "85%",
     borderRadius: 4,
   },
