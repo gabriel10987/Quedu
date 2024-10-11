@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Fontisto from '@expo/vector-icons/Fontisto';
 import Colors from '../../src/colors';
 import Quedu from './Quedu'; 
 
@@ -13,9 +14,14 @@ const Course = ({ course }) => {
         <View style={styles.courseContainer}>
             <View style={styles.headerContainer}>
                 <Text style={styles.courseName}>{course.name}</Text>
-                <TouchableOpacity style={styles.buttonMore}>
-                    <Text style={styles.buttonMoreText}>Ver más</Text>
-                </TouchableOpacity>
+                <View style={styles.buttons}>
+                    <TouchableOpacity style={styles.buttonFav}>
+                        <Fontisto name="favorite" size={20} color={Colors.lightBlue} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonMore}>
+                        <Text style={styles.buttonMoreText}>Ver más</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <FlatList
                 data={course.personalQuedus}
@@ -57,7 +63,20 @@ const styles = StyleSheet.create({
         color: Colors.white,
         fontFamily: "Quicksand-Light",
         fontSize: 12,
-    }
+    },
+    buttons: {
+        flex: 1,
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignContent: 'flex-end',
+        justifyContent: 'flex-end',
+    },
+    buttonFav: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+        backgroundColor: Colors.white,
+        marginEnd: 15,
+    },
 
 });
 
