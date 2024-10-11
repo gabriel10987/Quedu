@@ -8,7 +8,7 @@ const AppBar = ({ navigation }) => {
     <View style={styles.container}>
         <View style={styles.headerContainer}>
             <Image
-                source={require('../assets/Logo.png')}
+                source={require('../assets/images/Logo.png')}
                 style={styles.logo}
             />
             <View style={styles.titleContainer}>
