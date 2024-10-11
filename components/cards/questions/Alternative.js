@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Pressable, Text, StyleSheet, View } from 'react-native';
 import colors from "../../../src/colors";
 
-export const Alternative = ({ text, onSelect, selected }) => {
+export const Alternative = ({ text, onSelect, selected, style, disabled, correct }) => {
+  const getStyles = () => {
+    if (disabled) {
+      if (correct) return styles.correctAnswer;
+      if (selected && !correct) return styles.incorrectAnswer;
+    }
+    return selected ? styles.selected : styles.default;
+  };
+
   return (
-    <Pressable onPress={onSelect} style={[styles.container, selected && styles.selected]}>
-      <View style={styles.circle}>
-        {selected && <View style={styles.innerCircle} />}
+    <Pressable 
+      onPress={onSelect} 
+      style={[styles.container, getStyles()]}
+      disabled={disabled}
+    >
+      <View style={[styles.circle, getStyles()]}>
+        {selected && <View style={[styles.innerCircle, getStyles()]} />}
       </View>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, getStyles()]}>{text}</Text>
     </Pressable>
   );
 };
@@ -16,12 +28,9 @@ export const Alternative = ({ text, onSelect, selected }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 10,
-    paddingHorizontal: 10,
     alignItems: 'center',
     paddingVertical: 10,
-    minWidth: '85%',
-    backgroundColor: colors.white,
+    paddingHorizontal: 10,
     marginBottom: 5,
     borderRadius: 4,
   },
@@ -30,7 +39,6 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: colors.darkBlue, 
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
@@ -39,16 +47,26 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: colors.darkBlue, 
   },
   text: {
     flex: 1,
-    flexShrink: 1, 
-    fontSize: 10,
+    fontSize: 14,
     fontFamily: 'Quicksand-Regular',
-    color: '#333',
+  },
+  default: {
+    backgroundColor: colors.white,
+    borderColor: colors.darkBlue,
   },
   selected: {
-    backgroundColor: colors.whi,
+    backgroundColor: colors.lightBlue,
+    borderColor: colors.darkBlue,
+  },
+  correctAnswer: {
+    backgroundColor: 'rgba(0, 255, 0, 0.2)',
+    borderColor: 'green',
+  },
+  incorrectAnswer: {
+    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+    borderColor: 'red',
   },
 });
