@@ -10,8 +10,6 @@ const Course = ({ course }) => {
     };
 
     return (
-
-
         <View style={styles.courseContainer}>
             <View style={styles.headerContainer}>
                 <Text style={styles.courseName}>{course.name}</Text>
@@ -28,8 +26,6 @@ const Course = ({ course }) => {
                 showsVerticalScrollIndicator={false}
             />
         </View>
-
-        
     );
 };
 
