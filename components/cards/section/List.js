@@ -1,15 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import colors from "../../../src/colors";
+import { View, StyleSheet } from "react-native";
 import { SectionCard } from "./SectionCard";
 
-export const List = () => {
+export const List = ({ data, onItemPress }) => {
   return (
     <View style={styles.container}>
-      <SectionCard name= "course 1" date="02/23/32"/>
-      <SectionCard name= "course 1" date="02/23/32"/>
-      <SectionCard name= "course 1" date="02/23/32"/>
-      <SectionCard name= "course 1" date="02/23/32"/>
+      {data.map((item, index) => (
+        <SectionCard
+          key={index}
+          name={item.name}
+          date={item.date}
+          onPress={() => onItemPress(item)} // Al hacer clic, se llama a onItemPress con el curso seleccionado
+        />
+      ))}
     </View>
   );
 };
