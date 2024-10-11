@@ -2,6 +2,8 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import SigninScreen from "./screens/auth/SigninScreen";
+import SignupScreen from "./screens/auth/SignupScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MyQuedusScreen from "./screens/quedus/MyQuedusScreen";
 import CourseDetailScreen from "./screens/quedus/CourseDetailScreen";
@@ -24,6 +26,8 @@ const HomeStack = () => {
 const DrawerNavigator = () => {
     return (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
+            <Drawer.Screen name="Signin" component={SigninScreen} />
+            <Drawer.Screen name="Signup" component={SignupScreen} />
             <Drawer.Screen name="Home" component={HomeStack}/>
             <Drawer.Screen name="Mis Quedus" component={MyQuedusScreen} />
             <Drawer.Screen name="Questions" component={QuestionResolutionScreen} />
