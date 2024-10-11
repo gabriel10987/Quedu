@@ -6,42 +6,9 @@ import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
 import { Section } from "../../components/cards/section/Section";
 import { CompleteButton } from "../../components/cards/questions/CompleteButton";
+import data from "../../assets/data.json";
 
-const testQuestions = [
-  {
-    "_id": "111",
-    "name": "Introducción a la programación",
-    "created_at": "2024-05-01",
-    "%_acierto": 75,
-    "tried": 1,
-    "resueltoPor": [],
-    "questions": [
-      {
-        "_id": "1",
-        "question": "¿Qué es un algoritmo?",
-        "feedback_correct": "Un algoritmo es un conjunto de pasos ordenados para realizar una tarea",
-        "answers": [
-          {
-            "_id": "2",
-            "answer": "Conjunto de pasos ordenados para realizar una tarea",
-            "correct": true
-          },
-          {
-            "_id": "3",
-            "answer": "Conjunto de pasos desordenados para realizar una tarea",
-            "correct": false
-          },
-          {
-            "_id": "4",
-            "answer": "Un tipo de lenguaje de programación",
-            "correct": false
-          }
-        ]
-      },
-      // ... más preguntas ...
-    ]
-  },
-];
+const testQuestions = data[0].cursos[0].personalQuedus;
 
 const QuestionResolutionScreen = ({ navigation }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});

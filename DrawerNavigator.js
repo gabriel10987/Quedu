@@ -3,7 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "./screens/HomeScreen";
-import MyQuedus from "./screens/myQuedus/MyQuedus";
+import MyQuedusScreen from "./screens/quedus/MyQuedusScreen";
 import CourseDetailScreen from "./screens/quedus/CourseDetailScreen";
 import QuestionResolutionScreen from "./screens/resolution/QuestionResolutionScreen";
 import CreateCourseScreen from "./screens/CreateCourseScreen";
@@ -25,7 +25,7 @@ const DrawerNavigator = () => {
     return (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
             <Drawer.Screen name="Home" component={HomeStack}/>
-            <Drawer.Screen name="Mis Quedus" component={MyQuedus} />
+            <Drawer.Screen name="Mis Quedus" component={MyQuedusScreen} />
             <Drawer.Screen name="Questions" component={QuestionResolutionScreen} />
             <Drawer.Screen name="CreateCourse" component={CreateCourseScreen} />
         </Drawer.Navigator>

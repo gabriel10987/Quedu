@@ -4,7 +4,7 @@ import AppBar from '../../components/AppBar';
 import Colors from '../../src/colors';
 import CoursesList from '../../components/myQuedus/CoursesList';
 
-const MyQuedus = ({ navigation }) => {
+const MyQuedusScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <AppBar navigation={navigation} />
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
     }
   });
   
-  export default MyQuedus;
+  export default MyQuedusScreen;
