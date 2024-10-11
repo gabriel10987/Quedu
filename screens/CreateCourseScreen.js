@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     content: {
       height: '35%',
-      justifyContent: 'space-around',
+      gap: 20,
       alignItems: 'center',      
       paddingTop: 20,
     },
