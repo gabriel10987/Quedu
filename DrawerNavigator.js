@@ -1,7 +1,7 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "./screens/HomeScreen";
-import CourseDetailScreen from "./screens/myQuedus/CourseDetailScreen";
+import CourseDetailScreen from "./screens/quedus/CourseDetailScreen";
 
 import QuestionResolutionScreen from "./screens/resolution/QuestionResolutionScreen";
 
