@@ -4,12 +4,11 @@ import colors from "../../../src/colors";
 import { SectionHeader } from "./SectionHeader";
 import { List } from "./List";
 
-export const Section = ({ name, color, icon1, icon2, data = [], children }) => {
+export const Section = ({ name, color, icon1, icon2, data = [], onItemPress  }) => {
   return (
     <View style={styles.container}>
       <SectionHeader name={name} color={color} icon1={icon1} icon2={icon2} />
-      <List data={data} />
-      {children}
+      <List data={data} onItemPress={onItemPress}/>
 
     </View>
   );

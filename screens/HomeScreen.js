@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import AppBar from "../components/AppBar";
 import { Section } from "../components/cards/section/Section";
 import UploadButton from "../components/UploadButton";
@@ -35,6 +35,10 @@ const HomeScreen = ({ navigation }) => {
     setCursos(cursosData);
   }, []);
 
+  const handleCoursePress = (course) => {
+    navigation.navigate('CourseDetail', { course });  // Navega a CourseDetail pasando los detalles del curso
+  };
+
   return (
     <View style={styles.container}>
       <AppBar navigation={navigation} />
@@ -50,11 +54,12 @@ const HomeScreen = ({ navigation }) => {
           data={quedus}
         />
         <Section
-          name="Curses"
+          name="Courses"
           color="darkblue"
           icon1="add"
           icon2="arrow-forward"
           data={courses}
+          onItemPress={handleCoursePress}  // Pasa la función para manejar clics en los cursos
         />
       </View>
     </View>
