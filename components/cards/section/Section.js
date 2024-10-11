@@ -1,15 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import colors from "../../../src/colors";
+import { View, StyleSheet } from "react-native";
+import { EmptyList } from "./EmptyList";
 import { SectionHeader } from "./SectionHeader";
 import { List } from "./List";
 
-export const Section = ({ name, color, icon1, icon2, data = [], onItemPress  }) => {
+export const Section = ({ name, color, icon1, icon2, data = [], onItemPress, section }) => {
   return (
     <View style={styles.container}>
       <SectionHeader name={name} color={color} icon1={icon1} icon2={icon2} />
-      <List data={data} onItemPress={onItemPress}/>
-
+      {data.length === 0 ? <EmptyList section={section} /> : <List data={data} onItemPress={onItemPress} />}
     </View>
   );
 };

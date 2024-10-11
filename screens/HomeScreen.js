@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet } from "react-native";
 import AppBar from "../components/AppBar";
 import { Section } from "../components/cards/section/Section";
 import UploadButton from "../components/UploadButton";
+import colors from "../src/colors";
 
 const HomeScreen = ({ navigation }) => {
   const handleUpload = () => {
@@ -16,19 +17,19 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     // Simulate fetching Quedus
     const quedusData = [
-      { name: "Quedu 1", date: "02/04" },
-      { name: "Quedu 2", date: "03/04" },
-      { name: "Quedu 3", date: "04/05" },
-      { name: "Quedu 4", date: "05/07" },
+      // { name: "Quedu 1", date: "02/04" },
+      // { name: "Quedu 2", date: "03/04" },
+      // { name: "Quedu 3", date: "04/05" },
+      // { name: "Quedu 4", date: "05/07" },
     ];
     setQuedus(quedusData);
 
     // Simulate fetching Curses
     const cursosData = [
-      { name: "Course 1", date: "02/04"  },
-      { name: "Course 2", date: "02/04"  },
-      { name: "Course 3", date: "02/04"  },
-      { name: "Course 4", date: "02/04"  },
+      // { name: "Course 1", date: "02/04"  },
+      // { name: "Course 2", date: "02/04"  },
+      // { name: "Course 3", date: "02/04"  },
+      // { name: "Course 4", date: "02/04"  },
     ];
     setCursos(cursosData);
   }, []);
@@ -46,18 +47,21 @@ const HomeScreen = ({ navigation }) => {
         <Section
           name="Mis Quedus"
           description="Aquí puedes ver tus quedus"
-          color="darkblue"
+          color={colors.darkBlue}
           icon1="add"
           icon2="arrow-forward"
           data={quedus}
+          section="Quedus"
         />
+        <View style={styles.border}></View>
         <Section
           name="Courses"
-          color="darkblue"
+          color={colors.darkBlue}
           icon1="add"
           icon2="arrow-forward"
           data={courses}
           onItemPress={handleCoursePress} // Pasa la función para manejar clics en los cursos
+          section="Cursos"
         />
       </ScrollView>
     </View>
@@ -72,6 +76,12 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 20,
   },
+  border: {
+    borderBottomWidth: 1,
+    borderColor: colors.darkBlue,
+    marginHorizontal: 20,
+    marginVertical: 10,
+  }
 });
 
 export default HomeScreen;
