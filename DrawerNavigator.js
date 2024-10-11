@@ -29,7 +29,7 @@ const DrawerNavigator = () => {
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
             <Drawer.Screen name="Signin" component={SigninScreen} />
             <Drawer.Screen name="Signup" component={SignupScreen} />
-            <Drawer.Screen name="Incio" component={HomeStack}/>
+            <Drawer.Screen name="Inicio" component={HomeStack}/>
             <Drawer.Screen name="Mis Quedus" component={MyQuedusScreen} />
             <Drawer.Screen name="Questions" component={QuestionResolutionScreen} />
             <Drawer.Screen name="Crear Curso" component={CreateCourseScreen} />
