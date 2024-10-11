@@ -5,6 +5,7 @@ import AppBar from "../../components/AppBar";
 import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
 import { Section } from "../../components/cards/section/Section";
+import { CompleteButton } from "../../components/cards/questions/CompleteButton";
 
 const testQuestions = [
   {
@@ -25,16 +26,6 @@ const testQuestions = [
       "Realizar operaciones matemáticas de forma rápida.",
     ],
   },
-  {
-    question: "¿Cuál es el propósito principal de un Trie en estructuras de datos?",
-    alternatives: [
-      "Almacenar valores numéricos de forma eficiente.",
-      "Facilitar la búsqueda y almacenamiento de cadenas de texto.",
-      "Optimizar la ordenación de listas desordenadas.",
-      "Realizar operaciones matemáticas de forma rápida.",
-    ],
-  },
-
 ];
 
 const QuestionResolutionScreen = ({ navigation }) => {
@@ -45,6 +36,12 @@ const QuestionResolutionScreen = ({ navigation }) => {
       ...selectedAnswers,
       [questionIndex]: alternativeIndex,
     });
+  };
+  const handleComplete = () => {
+    // Aquí puedes agregar la lógica para finalizar el cuestionario, guardar respuestas, etc.
+    console.log("Cuestionario completado", selectedAnswers);
+    // Ejemplo: navegar a otra pantalla
+    // navigation.navigate('Resultados');
   };
 
   return (
@@ -66,6 +63,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
           </View>
         ))}
       </ScrollView>
+      <CompleteButton onPress={handleComplete} />
     </View>
   );
 };
@@ -73,7 +71,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.da,
+    backgroundColor: colors.white,
   },
   content: {
     padding: 20,

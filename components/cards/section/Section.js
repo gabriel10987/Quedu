@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     gap: 20,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.white,
     minWidth: "85%",
     borderRadius: 4,
     marginBottom: 10,
