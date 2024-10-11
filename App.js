@@ -10,11 +10,12 @@ export default function App() {
 
   const loadFonts = async () => {
     await Font.loadAsync({
-      'Quicksand-Bold': require('./assets/fonts/Quicksand-Bold.ttf'),
+      'Quicksand-Bold': require('./assets/fonts/BellotaText-Italic.ttf'),
       'Quicksand-Medium': require('./assets/fonts/Quicksand-Medium.ttf'),
       'Quicksand-Regular': require('./assets/fonts/Quicksand-Regular.ttf'),
       'Quicksand-Light': require('./assets/fonts/Quicksand-Light.ttf'),
       'Quicksand-SemiBold': require('./assets/fonts/Quicksand-SemiBold.ttf'),
+      'BellotaText-Italic': require('./assets/fonts/BellotaText-Italic.ttf'),
     });
     setFontsLoaded(true);
   };

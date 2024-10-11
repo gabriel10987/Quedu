@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import colors from "../../src/colors";
 import AppBar from "../../components/AppBar";
 import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
-import { Section } from "../../components/cards/section/Section";
-import { CompleteButton } from "../../components/cards/questions/CompleteButton";
+import Button from "../../components/common/Button";
 import data from "../../assets/data.json";
 
 const testQuestions = data[0].cursos[0].personalQuedus;
@@ -45,19 +44,32 @@ const QuestionResolutionScreen = ({ navigation }) => {
           <View key={question._id} style={styles.questionContainer}>
             <Question number={question._id} text={question.question} />
             {question.answers.map((answer) => (
-              <Alternative
-                key={answer._id}
-                text={answer.answer}
-                selected={selectedAnswers[question._id] === answer._id}
-                onSelect={() => handleSelect(question._id, answer._id)}
-                disabled={showResults}
-                correct={showResults && answer.correct}
-              />
+              <View key={answer._id}>
+                  <Alternative
+                    text={answer.answer}
+                    selected={selectedAnswers[question._id] === answer._id}
+                    onSelect={() => handleSelect(question._id, answer._id)}
+                    disabled={showResults}
+                    correct={showResults && answer.correct}
+                  />
+                  {showResults && selectedAnswers[question._id] === answer._id && (
+                    <Text style={styles.feedbackText}>
+                      {question.feedback_correct}
+                    </Text>
+                  )}
+              </View>
+
             ))}
           </View>
         ))}
+        <Button 
+          title="Completar" 
+          backgroundColor={colors.darkBlue} 
+          textColor={colors.white} 
+          onPress={handleComplete} disabled={isButtonDisabled || showResults} 
+          style={{ width: '35%' }}  
+        />
       </ScrollView>
-      <CompleteButton onPress={handleComplete} disabled={isButtonDisabled || showResults} />
     </View>
   );
 };
@@ -69,9 +81,16 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    alignItems: 'center'
   },
   questionContainer: {
     marginBottom: 30,
+  },
+  feedbackText: {
+    marginTop: 10,
+    fontSize: 14,
+    color: colors.gray,
+    fontFamily: "BellotaText-Italic",
   },
 });
 
