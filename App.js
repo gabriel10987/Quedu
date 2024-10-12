@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import DrawerNavigator from "./DrawerNavigator";
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import AuthStack from "./navigation/AuthStack";
+import DrawerNavigator from "./DrawerNavigator";
 
 export default function App() {
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const loadFonts = async () => {
     await Font.loadAsync({
@@ -30,7 +32,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <DrawerNavigator/>
+      {isSignedIn ? <DrawerNavigator /> : <AuthStack setIsSignedIn={setIsSignedIn}/>}
     </NavigationContainer>
   );
 };

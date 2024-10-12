@@ -1,11 +1,23 @@
-import { View, StyleSheet } from "react-native";
-import { ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../src/colors";
 import Logo from "../../components/auth/Logo";
-import InputList from "../../components/auth/InputList";
+import InputListSignin from "../../components/auth/InputListSignin";
+import React, { useState } from "react";
 
-const SigninScreen = ({ navigation }) => {
+const SigninScreen = ({ setIsSignedIn }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Función que será llamada por InputListSignin cuando se valide correctamente
+  const handleLogin = (isValid) => {
+    if (isValid) {
+      setIsSignedIn(true); // Actualiza el estado de autenticación si las credenciales son válidas
+    } else {
+      alert("Usuario o contraseña incorrecta");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -14,12 +26,18 @@ const SigninScreen = ({ navigation }) => {
       >
         <LinearGradient
           colors={["transparent", "rgba(255,255,255,0.8)", "rgba(255,255,255,1)"]}
-          locations={[0.05, 0.15, 0.25]} // Se ajusta el degradado para un cambio más gradual
+          locations={[0.05, 0.15, 0.25]}
           style={styles.gradient}
         >
           <View style={styles.containerSingin}>
-            <Logo/>
-            <InputList/>
+            <Logo />
+            <InputListSignin 
+              username={username} 
+              setUsername={setUsername} 
+              password={password} 
+              setPassword={setPassword} 
+              handleLogin={handleLogin}  // Pasamos la función para manejar el login
+            />
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -34,11 +52,11 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    height: "50%" // Asegura que el fondo se ajuste correctamente
+    height: "50%",
   },
   gradient: {
     flex: 1,
-    marginTop: 'auto', // Hace que el gradiente se aplique de manera completa desde la parte superior hasta el final de la imagen
+    marginTop: 'auto',
   },
   containerSingin: {
     flex: 1,
