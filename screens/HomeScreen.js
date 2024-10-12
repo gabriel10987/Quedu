@@ -26,10 +26,10 @@ const HomeScreen = ({ navigation }) => {
 
     // Simulate fetching Curses
     const cursosData = [
-      // { name: "Course 1", date: "02/04"  },
-      // { name: "Course 2", date: "02/04"  },
-      // { name: "Course 3", date: "02/04"  },
-      // { name: "Course 4", date: "02/04"  },
+      { name: "Course 1", date: "02/04"  },
+      { name: "Course 2", date: "02/04"  },
+      { name: "Course 3", date: "02/04"  },
+      { name: "Course 4", date: "02/04"  },
     ];
     setCursos(cursosData);
   }, []);
@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AppBar navigation={navigation} />
+      <AppBar navigation={navigation}/>
       <ScrollView contentContainerStyle={styles.content}>
         <UploadButton onPress={handleUpload} />
 
