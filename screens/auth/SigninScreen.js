@@ -5,7 +5,7 @@ import Logo from "../../components/auth/Logo";
 import InputListSignin from "../../components/auth/InputListSignin";
 import React, { useState } from "react";
 
-const SigninScreen = ({ setIsSignedIn }) => {
+const SigninScreen = ({ navigation, setIsSignedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,7 +36,8 @@ const SigninScreen = ({ setIsSignedIn }) => {
               setUsername={setUsername} 
               password={password} 
               setPassword={setPassword} 
-              handleLogin={handleLogin}  // Pasamos la función para manejar el login
+              handleLogin={handleLogin} // Pasamos la función para manejar el login
+              navigation= {navigation}  
             />
           </View>
         </LinearGradient>

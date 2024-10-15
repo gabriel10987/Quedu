@@ -3,7 +3,7 @@ import CustomTextInput from '../common/TextInput'
 import Button from '../common/Button'
 import colors from '../../src/colors'
 
-const InputListSignin =({ username, setUsername, password, setPassword, handleLogin }) => {
+const InputListSignin =({ username, setUsername, password, setPassword, handleLogin, navigation }) => {
 
   const handlePress = () => {
     navigation.navigate('Signup'); // Navega a la pantalla "NewScreen"
