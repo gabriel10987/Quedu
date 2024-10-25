@@ -5,10 +5,24 @@ import { Section } from "../components/cards/section/Section";
 import UploadButton from "../components/UploadButton";
 import colors from "../src/colors";
 
+import * as DocumentPicker from 'expo-document-picker'
+
 const HomeScreen = ({ navigation }) => {
-  const handleUpload = () => {
-    // Aquí puedes manejar el evento de subir un documento
-    console.log("Botón de subir documento presionado");
+  const handleUpload = async () => {
+    try {
+      const doc = await DocumentPicker.getDocumentAsync({
+        type: [
+          "application/pdf",    // Archivos PDF
+          "application/vnd.ms-powerpoint", // Archivos PPT
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation" // Archivos PPTX
+        ],
+      });
+
+      console.log(doc);
+      
+    } catch(error) {
+      console.log("Error al seleccionar archivo:", error);
+    }
   };
 
   const [quedus, setQuedus] = useState([]);
