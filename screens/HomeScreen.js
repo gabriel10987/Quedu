@@ -8,6 +8,7 @@ import colors from "../src/colors";
 import * as DocumentPicker from 'expo-document-picker'
 
 const HomeScreen = ({ navigation }) => {
+
   const handleUpload = async () => {
     try {
       const doc = await DocumentPicker.getDocumentAsync({
@@ -19,6 +20,13 @@ const HomeScreen = ({ navigation }) => {
       });
 
       console.log(doc);
+
+      if (!doc.canceled) {  // Cambiamos la verificación aquí
+        console.log("Archivo cargado exitosamente, navegando...");
+        navigation.navigate("CreateQueduScreen", { selectedDoc: doc });
+      } else {
+        console.log("Selección de archivo cancelada");
+      }
       
     } catch(error) {
       console.log("Error al seleccionar archivo:", error);
