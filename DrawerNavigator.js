@@ -20,6 +20,7 @@ const HomeStack = () => {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Home_Stack" component={HomeScreen} />
             <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
+            <Stack.Screen name="CreateQueduScreen" component={CreateQueduScreen} />
         </Stack.Navigator>
     );
 };
@@ -27,9 +28,9 @@ const HomeStack = () => {
 const DrawerNavigator = () => {
     return (
         <Drawer.Navigator screenOptions={{ headerShown: false }}>
+            <Drawer.Screen name="Inicio" component={HomeStack}/>
             <Drawer.Screen name="Signin" component={SigninScreen} />
             <Drawer.Screen name="Signup" component={SignupScreen} />
-            <Drawer.Screen name="Inicio" component={HomeStack}/>
             <Drawer.Screen name="Mis Quedus" component={MyQuedusScreen} />
             <Drawer.Screen name="Questions" component={QuestionResolutionScreen} />
             <Drawer.Screen name="Crear Curso" component={CreateCourseScreen} />

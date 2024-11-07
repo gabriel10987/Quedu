@@ -6,6 +6,7 @@ import CustomTextInput from '../../components/common/TextInput';
 import CustomDropdown from '../../components/common/CustomDropdown';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../src/colors';
+import axios from 'axios';
 
 const optionsCourse = [
     { label: 'Matemática', value: '1' },
@@ -18,12 +19,18 @@ const optionsNumberQuestion = [
     { label: '10', value: '2' },
 ];
 
-const CreateQueduScreen = ({navigation}) => {
+const CreateQueduScreen = ({navigation, route}) => {
 
     const [queduName, setQueduName] = useState('');
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [selectedQuestions, setSelectedQuestions] = useState(null);
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+
+    const selectedDoc = route?.params?.selectedDoc;
+
+    useEffect(() => {
+        console.log("Documento recibido en CreateQueduScreen: ", selectedDoc);
+    }, [selectedDoc]);
 
     useEffect(() => {
         if (queduName && selectedCourse && selectedQuestions) {
@@ -41,9 +48,29 @@ const CreateQueduScreen = ({navigation}) => {
         setSelectedQuestions(value);
     };
 
-    const handleFinalizarPress = () => {
-        if (isButtonEnabled) {
-            console.log('Creando quedu...')
+    const handleFinalizarPress = async () => {
+        if (isButtonEnabled && selectedDoc) {
+            const formData = new FormData();
+            formData.append('queduName', queduName);
+            formData.append('course', selectedCourse);
+            formData.append('questions', selectedQuestions);
+            formData.append('document', {
+                uri: selectedDoc.assets[0].uri,
+                type: selectedDoc.assets[0].mimeType,
+                name: selectedDoc.assets[0].name
+            })
+            console.log('Creando Quedu...')
+
+            try {
+                const response = await axios.post("http://192.168.0.19:3000/api/user/course/quedu/recibeFile", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log("Respuesta del servidor:", response.data);
+            } catch (error) {
+                console.log("Error al enviar datos:", error);
+            }
         }
     }
 
@@ -51,7 +78,9 @@ const CreateQueduScreen = ({navigation}) => {
         <View style={styles.container}>
             <AppBar navigation={navigation} />
             <View style={styles.content}>
-                <Text style={styles.title}>01.pdf</Text>
+                <Text style={styles.title}>
+                    {selectedDoc?.assets?.[0]?.name || "Archivo no seleccionado"}
+                </Text>
 
                 <View style={styles.dropdownWithIcon}>
                     <CustomDropdown
