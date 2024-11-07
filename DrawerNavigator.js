@@ -1,16 +1,10 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import SigninScreen from "./screens/auth/SigninScreen";
-import SignupScreen from "./screens/auth/SignupScreen";
-import HomeScreen from "./screens/HomeScreen";
 import MyQuedusScreen from "./screens/quedus/MyQuedusScreen";
-import CourseDetailScreen from "./screens/quedus/CourseDetailScreen";
 import QuestionResolutionScreen from "./screens/resolution/QuestionResolutionScreen";
 import CreateCourseScreen from "./screens/CreateCourseScreen";
+import HomeStack from "./navigation/HomeStack";
 import CreateQueduScreen from "./screens/quedus/CreateQueduScreen";
-
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
