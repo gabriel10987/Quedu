@@ -4,10 +4,10 @@ import { EmptyList } from "./EmptyList";
 import { SectionHeader } from "./SectionHeader";
 import { List } from "./List";
 
-export const Section = ({ name, color, icon1, icon2, data = [], onItemPress, section }) => {
+export const Section = ({ name, color, icon1, icon2, data = [], onItemPress, section, onIcon1Press, onIcon2Press }) => {
   return (
     <View style={styles.container}>
-      <SectionHeader name={name} color={color} icon1={icon1} icon2={icon2} />
+      <SectionHeader name={name} color={color} icon1={icon1} icon2={icon2} onIcon1Press={onIcon1Press} onIcon2Press={onIcon2Press} />
       {data.length === 0 ? <EmptyList section={section} /> : <List data={data} onItemPress={onItemPress} />}
     </View>
   );

@@ -8,7 +8,7 @@ const AuthStack = ({ setIsSignedIn }) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Signin">
-        {props => <SigninScreen {...props} setIsSignedIn={setIsSignedIn} />}
+        {() => <SigninScreen setIsSignedIn={setIsSignedIn} />}
       </Stack.Screen>
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>

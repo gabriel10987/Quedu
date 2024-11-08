@@ -8,10 +8,12 @@ const AppBar = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <View style={styles.headerContainer}>
-            <Image
-                source={require('../assets/images/Logo.png')}
-                style={styles.logo}
-            />
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Image
+            source={require('../assets/images/Logo.png')}
+            style={styles.logo}
+          />
+        </TouchableOpacity>
             <View style={styles.titleContainer}>
                 <Text style={styles.q}>Q</Text>
                 <Text style={styles.restOfTitle}>uedu</Text>
