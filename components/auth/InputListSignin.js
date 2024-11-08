@@ -3,10 +3,11 @@ import CustomTextInput from '../common/TextInput'
 import Button from '../common/Button'
 import colors from '../../src/colors'
 
+
 const InputListSignin =({ username, setUsername, password, setPassword, handleLogin, navigation }) => {
 
   const handlePress = () => {
-    navigation.navigate('Signup'); // Navega a la pantalla "NewScreen"
+    navigation.navigate('Signup'); 
   };
 
   const validateLogin = () => {
@@ -27,12 +28,12 @@ const InputListSignin =({ username, setUsername, password, setPassword, handleLo
       <View style={styles.registro}>
         <Text style={styles.texto}>¿No tienes cuenta?. Regístrate</Text>
         <TouchableOpacity onPress={handlePress}>
-                <Text style={styles.link}> aquí</Text>
-            </TouchableOpacity>
+          <Text style={styles.link}> aquí</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
-}
+};
 
 const styles = StyleSheet.create({
   container: {
