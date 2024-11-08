@@ -10,7 +10,7 @@ const AppBar = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate("HomeStack")}>
           <Image
             source={require('../assets/images/Logo.png')}
             style={styles.logo}
