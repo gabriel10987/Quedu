@@ -5,6 +5,7 @@ import QuestionResolutionScreen from "./screens/resolution/QuestionResolutionScr
 import CreateCourseScreen from "./screens/CreateCourseScreen";
 import HomeStack from "./navigation/HomeStack";
 import CreateQueduScreen from "./screens/quedus/CreateQueduScreen";
+import CommunitiesScreen from "./screens/communities/CommunitiesScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -16,6 +17,7 @@ const DrawerNavigator = () => {
             <Drawer.Screen name="Questions" component={QuestionResolutionScreen} />
             <Drawer.Screen name="Crear Curso" component={CreateCourseScreen} />
             <Drawer.Screen name="Crear Quedu" component={CreateQueduScreen} />
+            <Drawer.Screen name="Comunidades" component={CommunitiesScreen} />
         </Drawer.Navigator>
     );
 };

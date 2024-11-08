@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
     paddingVertical: 8,
-    minWidth: "85%",
+    minWidth: "100%",
   },
   pressableContainer: {
     marginRight: 5,
