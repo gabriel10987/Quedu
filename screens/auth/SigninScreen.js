@@ -1,20 +1,35 @@
-import { View, StyleSheet, ImageBackground } from "react-native";
+// screens/auth/SigninScreen.js
+import { View, StyleSheet, ImageBackground, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import colors from "../../src/colors";
 import Logo from "../../components/auth/Logo";
 import InputListSignin from "../../components/auth/InputListSignin";
 import React, { useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SigninScreen = ({ navigation, setIsSignedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   // Función que será llamada por InputListSignin cuando se valide correctamente
-  const handleLogin = (isValid) => {
+  const handleLogin = async (isValid) => {
     if (isValid) {
-      setIsSignedIn(true); // Actualiza el estado de autenticación si las credenciales son válidas
-    } else {
-      alert("Usuario o contraseña incorrecta");
+      try {
+        // Verificar si tenemos el token guardado
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          setIsSignedIn(true); // Actualiza el estado de autenticación
+          
+          // Limpiar los campos después de un login exitoso
+          setUsername("");
+          setPassword("");
+        } else {
+          Alert.alert('Error', 'No se pudo completar el inicio de sesión');
+        }
+      } catch (error) {
+        Alert.alert('Error', 'Hubo un problema al iniciar sesión');
+        console.error('Error al manejar el login:', error);
+      }
     }
   };
 
@@ -41,7 +56,7 @@ const SigninScreen = ({ navigation, setIsSignedIn }) => {
               password={password}
               setPassword={setPassword}
               handleLogin={handleLogin}
-              navigation={navigation} // Asegúrate de pasar 'navigation' aquí
+              navigation={navigation}
             />
           </View>
         </LinearGradient>
