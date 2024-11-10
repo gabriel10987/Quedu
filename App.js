@@ -5,12 +5,19 @@ import AppLoading from 'expo-app-loading';
 import AuthStack from "./navigation/AuthStack";
 import DrawerNavigator from "./DrawerNavigator";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from './context/AuthContext'; // Nuevo
 
 export default function App() {
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const authContext = React.useMemo(() => ({
+    signOut: async () => {
+      setIsSignedIn(false);
+    }
+  }), []);
 
   const loadFonts = async () => {
     await Font.loadAsync({
@@ -38,6 +45,7 @@ export default function App() {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     loadFonts();
@@ -53,8 +61,10 @@ export default function App() {
   }
   
   return (
-    <NavigationContainer>
-      {isSignedIn ? <DrawerNavigator /> : <AuthStack setIsSignedIn={setIsSignedIn}/>}
-    </NavigationContainer>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {isSignedIn ? <DrawerNavigator /> : <AuthStack setIsSignedIn={setIsSignedIn}/>}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Button } from 'react-native';  // Importa el componente Button
 import { useNavigation } from '@react-navigation/native'; // Para redireccionar después de cerrar sesión
 import UserService from './src/api/UserServices'; // Asegúrate de importar UserService
+import { AuthContext } from './context/AuthContext';
 
 import MyQuedusScreen from './screens/quedus/MyQuedusScreen';
 import QuestionResolutionScreen from './screens/resolution/QuestionResolutionScreen';
@@ -16,10 +17,12 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   const navigation = useNavigation();  // Usamos navegación para redirigir después del logout
+  const { signOut } = useContext(AuthContext);
 
   const handleLogout = async () => {
     try {
-      await UserService.logout(); // Llama al servicio de logout
+      await UserService.logout();
+      signOut(); // Llama a la función del contexto para actualizar el estado
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
@@ -35,10 +38,10 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Comunidades" component={CommunitiesScreen} />
       <Drawer.Screen
         name="Cerrar sesión"
-        component={() => null}  // Este componente solo se usa para el botón
+        component={() => null}
         options={{
           drawerLabel: () => (
-            <Button title="Cerrar sesión" onPress={handleLogout} />  // El botón de logout
+            <Button title="Cerrar sesión" onPress={handleLogout} />
           ),
         }}
       />
