@@ -1,34 +1,5 @@
-// src/api/UserServices.js
-import axios from 'axios';
-// Importar AsyncStorage en cualquier otro componente donde 
-// se necesites acceder al token
+import apiClient from './ApiClient'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Configuración base de axios
-//const API_URL = 'http://10.0.2.2:3000/api'; // URL para emulador Android
-const API_URL = 'http://localhost:3000/api'; // URL para iOS
-
-// Configurar instancia de axios con configuración base
-const apiClient = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Interceptor para agregar el token a las peticiones autenticadas
-apiClient.interceptors.request.use(
-  async (config) => {
-    const token = await AsyncStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 class UserService {
   // Registro de usuario
@@ -87,19 +58,16 @@ class UserService {
   // Manejo de errores centralizado
   static handleError(error) {
     if (error.response) {
-      // El servidor respondió con un código de estado fuera del rango 2xx
       return {
         status: error.response.status,
         message: error.response.data.message || 'Error en la petición',
       };
     } else if (error.request) {
-      // La petición fue hecha pero no se recibió respuesta
       return {
         status: 503,
         message: 'No se pudo conectar con el servidor',
       };
     } else {
-      // Algo sucedió en la configuración de la petición
       return {
         status: 500,
         message: 'Error al procesar la petición',
