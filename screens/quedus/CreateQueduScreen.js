@@ -62,7 +62,7 @@ const CreateQueduScreen = ({navigation, route}) => {
             console.log('Creando Quedu...')
 
             try {
-                const response = await axios.post("http://192.168.0.19:3000/api/user/course/quedu/recibeFile", formData, {
+                const response = await axios.post("http://192.168.0.19:3000/api/user/course/quedu/generateQuedu", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
