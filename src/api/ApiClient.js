@@ -1,9 +1,12 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
 // URL base para el API
 //const API_URL = 'http://10.0.2.2:3000/api'; // URL para emulador Android
-const API_URL = 'http://localhost:3000/api'; // Cambia según tu entorno
+//const API_URL = 'http://localhost:3000/api'; // Cambia según tu entorno
+// Definir la URL base dependiendo del entorno
+const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://10.0.2.2:3000/api';
 
 // Configurar instancia de axios con la URL base
 const apiClient = axios.create({
