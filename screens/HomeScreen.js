@@ -60,6 +60,15 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("CourseDetail", { course });
   };
 
+  // Función que se ejecuta cuando se hace clic en el icono 2
+  const toQuedusScreen = () => {
+    navigation.navigate("MyQuedusScreen");
+  };
+
+  const handleCreateCourse = () => {
+    navigation.navigate("CreateCourseScreen");
+  };
+
   return (
     <View style={styles.container}>
       <AppBar navigation={navigation}/>
@@ -74,6 +83,8 @@ const HomeScreen = ({ navigation }) => {
           icon2="arrow-forward"
           data={quedus}
           section="Quedus"
+          onIcon1Press={handleUpload}
+          onIcon2Press={toQuedusScreen}
         />
         <View style={styles.border}></View>
         <Section
@@ -84,6 +95,7 @@ const HomeScreen = ({ navigation }) => {
           data={courses}
           onItemPress={handleCoursePress} // Pasa la función para manejar clics en los cursos
           section="Cursos"
+          onIcon1Press={handleCreateCourse}
         />
       </ScrollView>
     </View>

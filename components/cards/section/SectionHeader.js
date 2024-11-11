@@ -2,15 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export const SectionHeader = ({name, color, icon1, icon2}) => {
+export const SectionHeader = ({name, color, icon1, icon2, onIcon1Press, onIcon2Press}) => {
   return (
     <View style={styles.container}>
       <Text style={[styles.text, { color: color }]}>{name}</Text>
       <View style={styles.pressableContainer}>
-        <Pressable>
+        <Pressable onPress={onIcon1Press}>
           <Ionicons name={icon1} size={18} color={color} />
         </Pressable>
-        <Pressable>
+        <Pressable onPress={onIcon2Press}>
           <Ionicons name={icon2} size={18} color={color}/>
         </Pressable>
       </View>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
     paddingVertical: 8,
-    minWidth: "85%",
+    minWidth: "100%",
   },
   pressableContainer: {
     marginRight: 5,

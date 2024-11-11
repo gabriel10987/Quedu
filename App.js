@@ -4,11 +4,20 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import AuthStack from "./navigation/AuthStack";
 import DrawerNavigator from "./DrawerNavigator";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from './context/AuthContext'; // Nuevo
 
 export default function App() {
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const authContext = React.useMemo(() => ({
+    signOut: async () => {
+      setIsSignedIn(false);
+    }
+  }), []);
 
   const loadFonts = async () => {
     await Font.loadAsync({
@@ -22,17 +31,40 @@ export default function App() {
     setFontsLoaded(true);
   };
 
+  // verificar la autenticacion del usuario
+  const checkAuthStatus = async () => {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        // Valida si el token sigue siendo válido (opcionalmente llama al backend)
+        setIsSignedIn(true);
+      }
+    } catch (error) {
+      console.error("Error verificando el token:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+
   useEffect(() => {
     loadFonts();
+    checkAuthStatus();
   }, []);
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
+  if (loading) {
+    return <AppLoading />; // Muestra una pantalla de carga mientras verifica el token
+  }
   
   return (
-    <NavigationContainer>
-      {isSignedIn ? <DrawerNavigator /> : <AuthStack setIsSignedIn={setIsSignedIn}/>}
-    </NavigationContainer>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {isSignedIn ? <DrawerNavigator /> : <AuthStack setIsSignedIn={setIsSignedIn}/>}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };

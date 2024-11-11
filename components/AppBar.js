@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Dimensions } from 'react-native';
+import { useState, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Path } from 'react-native-svg';
 
@@ -8,10 +10,12 @@ const AppBar = ({ navigation }) => {
   return (
     <View style={styles.container}>
         <View style={styles.headerContainer}>
-            <Image
-                source={require('../assets/images/Logo.png')}
-                style={styles.logo}
-            />
+        <TouchableOpacity onPress={() => navigation.navigate("HomeStack")}>
+          <Image
+            source={require('../assets/images/Logo.png')}
+            style={styles.logo}
+          />
+        </TouchableOpacity>
             <View style={styles.titleContainer}>
                 <Text style={styles.q}>Q</Text>
                 <Text style={styles.restOfTitle}>uedu</Text>
@@ -31,18 +35,40 @@ const AppBar = ({ navigation }) => {
   );
 };
 
-const Wave = () => (
-    <Svg
-      height="85"
-      width="100%"
-      style={styles.wave}
-    >
-      <Path
-        d="M0,40 C100,100 400,0 400,80 Q520,100 400,80 L540,100 L0,100 Z"
-        fill="#fff"
-      />
+// const Wave = () => (
+//     <Svg
+//       height="85"
+//       width="100%"
+//       style={styles.wave}
+//     >
+//       <Path
+//         d="M0,40 C100,100 400,0 540,100 L0,100 Z"
+//         fill="#fff"
+//       />
+//     </Svg>
+//   );
+
+const Wave = () => {
+  const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
+
+  // Actualiza el tamaño de pantalla en caso de cambios de orientación
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(Dimensions.get('window').width);
+    };
+    Dimensions.addEventListener('change', handleResize);
+    
+  }, []);
+
+  // Ajustamos la curva según el ancho de la pantalla
+  const svgPath = `M0,20 C100,60 350,0 ${screenWidth + 50},60 L0,60 Z`;
+
+  return (
+    <Svg height="85" width={screenWidth} style={{ backgroundColor: 'transparent' }}>
+      <Path d={svgPath} fill="#fff" />
     </Svg>
   );
+};
 
 const styles = StyleSheet.create({
   container: {
