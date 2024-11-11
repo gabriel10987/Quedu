@@ -16,6 +16,15 @@ class QueduServices {
         console.error("Error en la solicitud:", error);
         return new Error("Ocurrió un error al procesar la solicitud.");
     }
+
+    static async updateQuedu(userId, queduId, solved, successPercentaje, attempt) {
+        try {
+            const response = await apiClient.put('/quedu/update', { userId, queduId, solved, successPercentaje, attempt });
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
 }
 
 
