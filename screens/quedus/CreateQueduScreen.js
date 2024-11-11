@@ -47,7 +47,10 @@ const CreateQueduScreen = ({navigation, route}) => {
     const handleValueChangeQuestions = (value) => {
         setSelectedQuestions(value);
     };
-
+    const handleCreateCourse = () => {
+        navigation.navigate("CreateCourseScreen");
+    };
+    
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
             const formData = new FormData();
@@ -91,7 +94,7 @@ const CreateQueduScreen = ({navigation, route}) => {
                         borderColor={colors.lightBlue}
                         style={{ width: '100%' }}
                     />
-                    <Pressable style={styles.addButton}>
+                    <Pressable style={styles.addButton} onPress={handleCreateCourse}>
                         <Ionicons name="add" size={25} color={colors.darkBlue} />
                     </Pressable>
                 </View>
