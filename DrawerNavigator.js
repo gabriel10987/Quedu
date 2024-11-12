@@ -36,6 +36,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="Crear Curso" component={CreateCourseScreen} />
       <Drawer.Screen name="Crear Quedu" component={CreateQueduScreen} />
       <Drawer.Screen name="Comunidades" component={CommunitiesScreen} />
+      <Drawer.Screen name="Resol" component={QuestionResolutionScreen} />
       <Drawer.Screen
         name="Cerrar sesión"
         component={() => null}

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { SectionCard } from "./SectionCard";
+import moment from "moment";
 
 export const List = ({ data, onItemPress }) => {
   return (
@@ -9,7 +10,7 @@ export const List = ({ data, onItemPress }) => {
         <SectionCard
           key={index}
           name={item.name}
-          date={item.date}
+          date={moment(item.date).format("DD/MM")}
           onPress={() => onItemPress(item)} // Al hacer clic, se llama a onItemPress con el curso seleccionado
         />
       ))}

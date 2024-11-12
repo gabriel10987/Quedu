@@ -2,15 +2,16 @@ import { View, StyleSheet } from "react-native";
 import { SectionCardCommunity } from "./SectionCardCommunity";
 
 export const SectionCommunity = ({ data = [], onItemPress }) => {
+  
   return (
     <View style={styles.container}>
       {data.map((item, index) => (
         <SectionCardCommunity
           key={index}
           name={item.name}
-          tests={item.tests}
+          tests={item.numberOfQuedus}
           image={item.image}
-          onPress={() => onItemPress(item)}
+          onPress={() => onItemPress(item._id)}
         />
       ))}
     </View>
