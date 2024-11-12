@@ -26,7 +26,7 @@ const AppBar = ({ navigation }) => {
         </View>
 
         <View style={styles.welcomeContainer}>
-            <Text style={styles.welcomeText}>Hola Santiago</Text>
+            <Text style={styles.welcomeText}>Hola Diego</Text>
             <Text style={styles.promptText}>¿Listo para avanzar?</Text>
         </View>
 
