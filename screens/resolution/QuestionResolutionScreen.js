@@ -5,23 +5,47 @@ import AppBar from "../../components/AppBar";
 import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
 import Button from "../../components/common/Button";
-import data from "../../assets/data.json";
+import QueduServices from "../../src/api/QueduServices";
 
-const testQuestions = data[0].cursos[0].personalQuedus;
+const userId = "67315108e52157020d86a3fb"; // ----------------------------- aqui reemplazaré el id del usuario
 
 const QuestionResolutionScreen = ({ navigation }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [quedu, setQuedu] = useState({});
+  const [questions, setQuestions] = useState([]);
+  const [btnTitle, setBtnTitle] = useState("Completar");
+  const [attempt, setAttempt] = useState(0);
+  const [numberOfQuestions, setNumberOfQuestions] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [successPercentage, setSuccessPercentage] = useState(0);
 
   useEffect(() => {
-    const allQuestionsAnswered = testQuestions[0].questions.every(
+    const fetchLastQuedu = async () => {
+      try {
+        const quedu = await QueduServices.getLastQuedu(userId);
+        setQuedu(quedu);  // Actualizar el estado con el último personalQuedu
+        setQuestions(quedu.questions);  // Actualizar el estado con las preguntas del quedu
+        setNumberOfQuestions(quedu.questions.length);  // Actualizar el estado con el número de preguntas
+      } catch (error) {
+        console.error("Error al obtener el último quedu:", error);
+      }
+    };
+  
+    fetchLastQuedu();
+  }, []);
+  
+
+  useEffect(() => {
+    const allQuestionsAnswered = questions.every(
       (question) => selectedAnswers[question._id] !== undefined
     );
     setIsButtonDisabled(!allQuestionsAnswered);
   }, [selectedAnswers]);
 
-  const handleSelect = (questionId, answerId) => {
+  const handleSelect = (questionId, answerId, answerCorrect) => {
+    answerCorrect ? setCorrectAnswers(correctAnswers + 1) : setCorrectAnswers(correctAnswers);
     if (!showResults) {
       setSelectedAnswers({
         ...selectedAnswers,
@@ -31,7 +55,28 @@ const QuestionResolutionScreen = ({ navigation }) => {
   };
 
   const handleComplete = () => {
-    setShowResults(true);
+    if (attempt == 0) {
+      setBtnTitle("Finalizar");
+      setShowResults(true);
+      setAttempt(1);
+      setSuccessPercentage((correctAnswers / numberOfQuestions) * 100);
+    } else {
+      const queduId = quedu._id;
+      const solved = true;
+
+      const updateQuedu = async () => {
+        try {
+          await QueduServices.updateQuedu(userId, queduId, solved, successPercentage, attempt);
+        } catch (error) {
+          console.error("Error al actualizar el quedu:", error);
+        }
+      };
+
+      updateQuedu();
+
+      navigation.navigate('Home');
+    }
+    
     console.log("Cuestionario completado", selectedAnswers);
   };
 
@@ -40,21 +85,21 @@ const QuestionResolutionScreen = ({ navigation }) => {
       <AppBar navigation={navigation} />
 
       <ScrollView contentContainerStyle={styles.content}>
-        {testQuestions[0].questions.map((question) => (
+        {questions.map((question, index) => (
           <View key={question._id} style={styles.questionContainer}>
-            <Question number={question._id} text={question.question} />
+            <Question number={index + 1} text={question.question} />
             {question.answers.map((answer) => (
               <View key={answer._id}>
                   <Alternative
                     text={answer.answer}
                     selected={selectedAnswers[question._id] === answer._id}
-                    onSelect={() => handleSelect(question._id, answer._id)}
+                    onSelect={() => handleSelect(question._id, answer._id, answer.correct)}
                     disabled={showResults}
                     correct={showResults && answer.correct}
                   />
                   {showResults && selectedAnswers[question._id] === answer._id && (
                     <Text style={styles.feedbackText}>
-                      {question.feedback_correct}
+                      {question.feedback}
                     </Text>
                   )}
               </View>
@@ -63,7 +108,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
           </View>
         ))}
         <Button 
-          title="Completar" 
+          title={btnTitle} 
           backgroundColor={colors.darkBlue} 
           textColor={colors.white} 
           onPress={handleComplete} disabled={isButtonDisabled || showResults} 
