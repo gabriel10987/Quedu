@@ -16,7 +16,9 @@ const HomeScreen = ({ navigation }) => {
         type: [
           "application/pdf",    // Archivos PDF
           "application/vnd.ms-powerpoint", // Archivos PPT
-          "application/vnd.openxmlformats-officedocument.presentationml.presentation" // Archivos PPTX
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation", // Archivos PPTX
+          "application/msword", // Archivos DOC
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" // Archivos DOCX
         ],
       });
 

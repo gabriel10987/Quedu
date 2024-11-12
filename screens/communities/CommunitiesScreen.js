@@ -4,48 +4,30 @@ import AppBar from "../../components/AppBar";
 import colors from "../../src/colors";
 import { SectionHeader } from "../../components/cards/section/SectionHeader";
 import { SectionCommunity } from "../../components/cards/section/community/SectionCommunity";
+import CommunityServices from "../../src/api/CommunityServices";
+
+const userId = "67315108e52157020d86a3fb"; // ----------------------------- aqui reemplazaré el id del usuario
 
 const CommunitiesScreen = ({ navigation }) => {
   const [communities, setCommunities] = useState([]);
 
   useEffect(() => {
-    const communitiesData = [
-      {
-        name: "Programación Orientada a objetos",
-        tests: "48",
-        image: "../../../../assets/images/img.png",
-      },
-      {
-        name: "Ingeniería de Requerimientos",
-        tests: "12",
-        image: "../../../../assets/images/img.png",
-      },
-      {
-        name: "Mejora continua",
-        tests: "92",
-        image: "../../../../assets/images/img.png",
-      },
-      {
-        name: "Sistemas Operativos",
-        tests: "1",
-        image: "../../../../assets/images/img.png",
-      },
-      {
-        name: "Base de Datos Avanzado",
-        tests: "1",
-        image: "../../../../assets/images/img.png",
-      },
-      {
-        name: "Desarrollo de Aplicaciones Web",
-        tests: "26",
-        image: "../../../../assets/images/img.png",
-      },
-    ];
-    setCommunities(communitiesData);
+
+    const fetchCommunities = async () => {
+      try {
+        const response = await CommunityServices.getAllCommunities();
+        setCommunities(response.community);
+      } catch (error) {
+        console.error("Error al obtener las comunidades:", error);
+      }
+    };
+
+    fetchCommunities();
   }, []);
 
-  const handleCommunityPress = (community) => {
-    navigation.navigate("CommunityDetail", { community });
+  const handleCommunityPress = (communityId) => {
+    console.log(communities);
+    navigation.navigate("CommunityDetail", { communityId });
   };
 
   return (
