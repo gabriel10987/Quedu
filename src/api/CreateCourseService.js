@@ -11,6 +11,19 @@ class CreateCourseService {
       throw error; // Lanza el error para que pueda ser manejado en el frontend
     }
   }
+
+  // Función para obtener cursos por usuario
+  static async getCoursesByUserId(userId) {
+    try {
+      const response = await apiClient.get(`/users/${userId}/courses`);
+      return response.data.courses; // Retorna solo los cursos desde la respuesta
+    } catch (error) {
+      console.error("Error al obtener los cursos:", error);
+      throw error; // Lanza el error para que pueda ser manejado en el frontend
+    }
+  }
 }
+
+
 
 export default CreateCourseService;
