@@ -5,32 +5,32 @@ import { Section } from "../components/cards/section/Section";
 import UploadButton from "../components/UploadButton";
 import colors from "../src/colors";
 import CreateCourseService from "../src/api/CreateCourseService";
-import * as DocumentPicker from 'expo-document-picker';
+import * as DocumentPicker from "expo-document-picker";
 import { useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({ navigation }) => {
-
   const handleUpload = async () => {
     try {
       const doc = await DocumentPicker.getDocumentAsync({
         type: [
-          "application/pdf",    // Archivos PDF
+          "application/pdf", // Archivos PDF
           "application/vnd.ms-powerpoint", // Archivos PPT
           "application/vnd.openxmlformats-officedocument.presentationml.presentation", // Archivos PPTX
           "application/msword", // Archivos DOC
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" // Archivos DOCX
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // Archivos DOCX
         ],
       });
 
       console.log(doc);
 
-      if (!doc.canceled) {  // Cambiamos la verificación aquí
+      if (!doc.canceled) {
+        // Cambiamos la verificación aquí
         console.log("Archivo cargado exitosamente, navegando...");
         navigation.navigate("CreateQueduScreen", { selectedDoc: doc });
       } else {
         console.log("Selección de archivo cancelada");
       }
-
     } catch (error) {
       console.log("Error al seleccionar archivo:", error);
     }
@@ -41,9 +41,14 @@ const HomeScreen = ({ navigation }) => {
 
   const fetchCourses = async () => {
     try {
-      const userId = "6731625943a8b1e4299b732d"; // Aquí debes poner el ID del usuario autenticado
+      // Obtener el userId de AsyncStorage
+      const userId = await AsyncStorage.getItem("userId");
+
+      // Mostrar el userId en la consola para verificación
+      console.log(`El id obtenido del asyncstorage -> ${userId}`);
+      //const userId = "67315108e52157020d86a3fb"; // Aquí debes poner el ID del usuario autenticado
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
-      const sortedCourses = userCourses.slice(-4).reverse(); 
+      const sortedCourses = userCourses.slice(-4).reverse();
       setCursos(sortedCourses);
     } catch (error) {
       console.error("Error al obtener los cursos:", error);
@@ -52,7 +57,7 @@ const HomeScreen = ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-      fetchCourses();  // Llamar a fetchCourses cada vez que la pantalla recibe foco
+      fetchCourses(); // Llamar a fetchCourses cada vez que la pantalla recibe foco
     }, [])
   );
 
@@ -97,7 +102,7 @@ const HomeScreen = ({ navigation }) => {
           icon1="add"
           icon2="arrow-forward"
           data={courses}
-          onItemPress={handleCoursePress} 
+          onItemPress={handleCoursePress}
           section="Cursos"
           onIcon1Press={handleCreateCourse}
         />
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
     borderColor: colors.darkBlue,
     marginHorizontal: 20,
     marginVertical: 10,
-  }
+  },
 });
 
 export default HomeScreen;
