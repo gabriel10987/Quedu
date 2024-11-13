@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import AppBar from "../components/AppBar";
 import { Section } from "../components/cards/section/Section";
 import UploadButton from "../components/UploadButton";
 import colors from "../src/colors";
-
-import * as DocumentPicker from 'expo-document-picker'
+import CreateCourseService from "../src/api/CreateCourseService";
+import * as DocumentPicker from 'expo-document-picker';
+import { useFocusEffect } from "@react-navigation/native";
 
 const HomeScreen = ({ navigation }) => {
 
@@ -29,8 +30,8 @@ const HomeScreen = ({ navigation }) => {
       } else {
         console.log("Selección de archivo cancelada");
       }
-      
-    } catch(error) {
+
+    } catch (error) {
       console.log("Error al seleccionar archivo:", error);
     }
   };
@@ -38,31 +39,32 @@ const HomeScreen = ({ navigation }) => {
   const [quedus, setQuedus] = useState([]);
   const [courses, setCursos] = useState([]);
 
-  useEffect(() => {
-    // Simulate fetching Quedus
-    const quedusData = [
-      // { name: "Quedu 1", date: "02/04" },
-      // { name: "Quedu 2", date: "03/04" },
-      // { name: "Quedu 3", date: "04/05" },
-      // { name: "Quedu 4", date: "05/07" },
-    ];
-    setQuedus(quedusData);
+  const fetchCourses = async () => {
+    try {
+      const userId = "6731625943a8b1e4299b732d"; // Aquí debes poner el ID del usuario autenticado
+      const userCourses = await CreateCourseService.getCoursesByUserId(userId);
+      const sortedCourses = userCourses.slice(-4).reverse(); 
+      setCursos(sortedCourses);
+    } catch (error) {
+      console.error("Error al obtener los cursos:", error);
+    }
+  };
 
-    // Simulate fetching Curses
-    const cursosData = [
-      { name: "Course 1", date: "02/04"  },
-      { name: "Course 2", date: "02/04"  },
-      { name: "Course 3", date: "02/04"  },
-      { name: "Course 4", date: "02/04"  },
-    ];
-    setCursos(cursosData);
+  useFocusEffect(
+    useCallback(() => {
+      fetchCourses();  // Llamar a fetchCourses cada vez que la pantalla recibe foco
+    }, [])
+  );
+
+  useEffect(() => {
+    const quedusData = [];
+    setQuedus(quedusData);
   }, []);
 
   const handleCoursePress = (course) => {
     navigation.navigate("CourseDetail", { course });
   };
 
-  // Función que se ejecuta cuando se hace clic en el icono 2
   const toQuedusScreen = () => {
     navigation.navigate("MyQuedusScreen");
   };
@@ -73,7 +75,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <AppBar navigation={navigation}/>
+      <AppBar navigation={navigation} />
       <ScrollView contentContainerStyle={styles.content}>
         <UploadButton onPress={handleUpload} />
 
@@ -90,12 +92,12 @@ const HomeScreen = ({ navigation }) => {
         />
         <View style={styles.border}></View>
         <Section
-          name="Courses"
+          name="Cursos"
           color={colors.darkBlue}
           icon1="add"
           icon2="arrow-forward"
           data={courses}
-          onItemPress={handleCoursePress} // Pasa la función para manejar clics en los cursos
+          onItemPress={handleCoursePress} 
           section="Cursos"
           onIcon1Press={handleCreateCourse}
         />
