@@ -11,7 +11,6 @@ const CourseDetailScreen = ({ route, navigation }) => {
   const [quedus, setQuedus] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching Quedus
     const quedusData = [
       { name: "Quedu 1", date: "02/04" },
       { name: "Quedu 2", date: "03/04" },

@@ -4,6 +4,7 @@ import CourseDetailScreen from "../screens/quedus/CourseDetailScreen";
 import CreateQueduScreen from "../screens/quedus/CreateQueduScreen";
 import MyQuedusScreen from "../screens/quedus/MyQuedusScreen";
 import CreateCourseScreen from "../screens/CreateCourseScreen";
+import CourseListScreen from "../screens/quedus/CourseListScreen";
 import CommunityDetailScreen from "../screens/communities/CommunityDetailScreen";
 
 const Stack = createStackNavigator();
@@ -13,6 +14,7 @@ const HomeStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeStack" component={HomeScreen} />
       <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
+      <Stack.Screen name="CourseList" component={CourseListScreen} />
       <Stack.Screen name="CreateQueduScreen" component={CreateQueduScreen} />
       <Stack.Screen name="MyQuedusScreen" component={MyQuedusScreen} />
       <Stack.Screen name="CreateCourseScreen" component={CreateCourseScreen} />

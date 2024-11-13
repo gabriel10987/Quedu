@@ -82,6 +82,11 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("CreateCourseScreen");
   };
 
+  // Nueva función para manejar la navegación a CourseListScreen
+  const handleCourseListPress = () => {
+    navigation.navigate("CourseList");
+  };
+
   return (
     <View style={styles.container}>
       <AppBar navigation={navigation} />
@@ -109,6 +114,7 @@ const HomeScreen = ({ navigation }) => {
           onItemPress={handleCoursePress} 
           section="Cursos"
           onIcon1Press={handleCreateCourse}
+          onIcon2Press={handleCourseListPress}
         />
       </ScrollView>
     </View>
