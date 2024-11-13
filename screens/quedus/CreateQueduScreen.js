@@ -123,6 +123,7 @@ const CreateQueduScreen = ({navigation, route}) => {
             const insertQuedu = await QueduServices.createQueduInUser(queduGenerated);
 
             console.log("quedu generado correctamente: ", queduGenerated);
+            navigation.navigate("QuestionResolutionScreen");
         }
     }
 

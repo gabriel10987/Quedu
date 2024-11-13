@@ -74,7 +74,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
 
       updateQuedu();
 
-      navigation.navigate('Home');
+      navigation.navigate('HomeStack');
     }
     
     console.log("Cuestionario completado", selectedAnswers);
