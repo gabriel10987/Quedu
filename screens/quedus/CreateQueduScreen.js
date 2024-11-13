@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, StyleSheet, Text, Pressable  } from 'react-native';
 import AppBar from '../../components/AppBar';
 import Button from '../../components/common/Button';
@@ -45,28 +46,28 @@ const CreateQueduScreen = ({navigation, route}) => {
 
     const selectedDoc = route?.params?.selectedDoc;
     
-    // useEffect para obtener los cursos del usuario
-    useEffect(() => {
-        const fetchUserCourses = async () => {
-            try {
-                const userIdGetted = await UserService.getUserId();
-                console.log("Id de usuario: ", userIdGetted);
-                const gettingUserCourses = await CreateCourseService.getCoursesByUserId(userIdGetted);
+    const fetchUserCourses = async () => {
+        try {
+          const userIdGetted = await UserService.getUserId();
+          const gettingUserCourses = await CreateCourseService.getCoursesByUserId(userIdGetted);
+    
+          const coursesOptions = gettingUserCourses.map(course => ({
+            label: course.name,
+            value: course.name
+          }));
+          
+          setOptionsCourse(coursesOptions);
+        } catch (error) {
+          console.error("Error al obtener cursos del usuario:", error);
+        }
+    };
 
-                const coursesOptions = gettingUserCourses.map(course => ({
-                    label: course.name,
-                    value: course.name
-                }));
-
-                setOptionsCourse(coursesOptions);
-                console.log("Opciones de curso formateadas:", coursesOptions);
-            } catch (error) {
-                console.error("Error al obtener cursos del usuario:", error);
-            }
-        };
-
+    // Cargar cursos cada vez que se regrese a esta pantalla
+    useFocusEffect(
+      useCallback(() => {
         fetchUserCourses();
-    }, []);
+      }, [])
+    );
 
     useEffect(() => {
         console.log("Documento recibido en CreateQueduScreen: ", selectedDoc);
@@ -88,8 +89,9 @@ const CreateQueduScreen = ({navigation, route}) => {
         setSelectedQuestions(value);
     };
     const handleCreateCourse = () => {
-        navigation.navigate("CreateCourseScreen");
-    };
+        navigation.navigate("CreateCourseScreen", { onCourseCreated: fetchUserCourses });
+      };
+    
     
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
