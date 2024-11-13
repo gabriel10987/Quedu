@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../../src/colors';
 import QueduServices from '../../src/api/QueduServices';
 import UserService from '../../src/api/UserServices';
+import CreateCourseService from '../../src/api/CreateCourseService';
 /*
 // puede servir para usar ids de cursos o algo asi
 const optionsCourse = [
@@ -23,12 +24,13 @@ const optionsNumberQuestion = [
 */
 
 // datos estaticos pasando el valor(Value)
+/*
 const optionsCourse = [
     { label: 'Matemática', value: 'Matemática' },
     { label: 'Lenguaje', value: 'Lenguaje' },
     { label: 'Programación', value: 'Programación' },
 ];
-
+*/
 const optionsNumberQuestion = [
     { label: '1 pregunta', value: '1' },
     { label: '2 preguntas', value: '2' },
@@ -39,8 +41,32 @@ const CreateQueduScreen = ({navigation, route}) => {
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [selectedQuestions, setSelectedQuestions] = useState(null);
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+    const [optionsCourse, setOptionsCourse] = useState([]);
 
     const selectedDoc = route?.params?.selectedDoc;
+    
+    // useEffect para obtener los cursos del usuario
+    useEffect(() => {
+        const fetchUserCourses = async () => {
+            try {
+                const userIdGetted = await UserService.getUserId();
+                console.log("Id de usuario: ", userIdGetted);
+                const gettingUserCourses = await CreateCourseService.getCoursesByUserId(userIdGetted);
+
+                const coursesOptions = gettingUserCourses.map(course => ({
+                    label: course.name,
+                    value: course.name
+                }));
+
+                setOptionsCourse(coursesOptions);
+                console.log("Opciones de curso formateadas:", coursesOptions);
+            } catch (error) {
+                console.error("Error al obtener cursos del usuario:", error);
+            }
+        };
+
+        fetchUserCourses();
+    }, []);
 
     useEffect(() => {
         console.log("Documento recibido en CreateQueduScreen: ", selectedDoc);
