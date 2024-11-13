@@ -7,6 +7,7 @@ import colors from "../src/colors";
 import CreateCourseService from "../src/api/CreateCourseService";
 import * as DocumentPicker from 'expo-document-picker';
 import { useFocusEffect } from "@react-navigation/native";
+import UserService from "../src/api/UserServices";
 
 const HomeScreen = ({ navigation }) => {
 
@@ -41,8 +42,16 @@ const HomeScreen = ({ navigation }) => {
 
   const fetchCourses = async () => {
     try {
-      const userId = "6731625943a8b1e4299b732d"; // Aquí debes poner el ID del usuario autenticado
+
+      const userIdGetted = await UserService.getUserId();
+
+      //debug
+      console.log("Sacando userID", userIdGetted);
+      console.log("tipo de userID: ", typeof(userIdGetted));
+
+      const userId = userIdGetted; // Aquí debes poner el ID del usuario autenticado
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
+      console.log("Cursos del usuario: ", userCourses);
       const sortedCourses = userCourses.slice(-4).reverse(); 
       setCursos(sortedCourses);
     } catch (error) {

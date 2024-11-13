@@ -4,9 +4,25 @@ import { Dimensions } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import Svg, { Path } from 'react-native-svg';
-
+import UserService from "../src/api/UserServices";
 
 const AppBar = ({ navigation }) => {
+
+  const [userName, setUserName] = useState([]);
+
+  // useEffect para obtener los cursos del usuario
+  useEffect(() => {
+      const getUserName = async () => {
+          try {
+              const response = await UserService.getUserName();
+              setUserName(response);
+          } catch (error) {
+              console.error("Error al obtener cursos del usuario:", error);
+          }
+      };
+      getUserName();
+  }, []);
+
   return (
     <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -26,7 +42,7 @@ const AppBar = ({ navigation }) => {
         </View>
 
         <View style={styles.welcomeContainer}>
-            <Text style={styles.welcomeText}>Hola Diego</Text>
+            <Text style={styles.welcomeText}>Hola {userName}</Text>
             <Text style={styles.promptText}>¿Listo para avanzar?</Text>
         </View>
 

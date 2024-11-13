@@ -6,32 +6,23 @@ import CustomTextInput from '../components/common/TextInput';
 import colors from '../src/colors';
 import CreateCourseService from '../src/api/CreateCourseService';
 
-const CreateCourseScreen = ({ navigation }) => {
+const CreateCourseScreen = ({ navigation, route }) => {
+  const { onCourseCreated } = route.params || {};  // Obtener la función onCourseCreated
   const [courseName, setCourseName] = useState('');
 
   const handleCreateCourse = async () => {
     try {
       const response = await CreateCourseService.createCourse(courseName);
       Alert.alert('Curso creado', 'El curso se creó exitosamente');
-      setCourseName(''); 
+      setCourseName('');
 
-      // Obtener la pantalla anterior y realizar la redirección adecuada
-      const previousScreen = navigation.getState().routes[navigation.getState().index - 1].name;
+      // Llama a la función onCourseCreated si está definida
+      if (onCourseCreated) onCourseCreated();
 
-      if (previousScreen === 'HomeStack') {
-        navigation.popToTop();  
-      } else if (previousScreen === 'CreateQueduScreen') {
-        navigation.pop();
-      }
+      navigation.goBack();  // Regresa a la pantalla anterior
     } catch (error) {
       console.error('Error al crear el curso:', error);
-
-      // Mensaje de error desde el backend
-      if (error.response && error.response.data && error.response.data.mensaje) {
-        Alert.alert('Error', error.response.data.mensaje);
-      } else {
-        Alert.alert('Error', 'No se pudo crear el curso');
-      }
+      Alert.alert('Error', 'No se pudo crear el curso');
     }
   };
 

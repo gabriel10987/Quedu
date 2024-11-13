@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { View, StyleSheet, Text, Pressable  } from 'react-native';
 import AppBar from '../../components/AppBar';
 import Button from '../../components/common/Button';
@@ -6,8 +7,11 @@ import CustomTextInput from '../../components/common/TextInput';
 import CustomDropdown from '../../components/common/CustomDropdown';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../src/colors';
-import axios from 'axios';
-
+import QueduServices from '../../src/api/QueduServices';
+import UserService from '../../src/api/UserServices';
+import CreateCourseService from '../../src/api/CreateCourseService';
+/*
+// puede servir para usar ids de cursos o algo asi
 const optionsCourse = [
     { label: 'Matemática', value: '1' },
     { label: 'Lenguaje', value: '2' },
@@ -15,18 +19,55 @@ const optionsCourse = [
 ];
 
 const optionsNumberQuestion = [
-    { label: '5', value: '1' },
-    { label: '10', value: '2' },
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
 ];
+*/
 
+// datos estaticos pasando el valor(Value)
+/*
+const optionsCourse = [
+    { label: 'Matemática', value: 'Matemática' },
+    { label: 'Lenguaje', value: 'Lenguaje' },
+    { label: 'Programación', value: 'Programación' },
+];
+*/
+const optionsNumberQuestion = [
+    { label: '1 pregunta', value: '1' },
+    { label: '2 preguntas', value: '2' },
+];
 const CreateQueduScreen = ({navigation, route}) => {
 
     const [queduName, setQueduName] = useState('');
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [selectedQuestions, setSelectedQuestions] = useState(null);
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+    const [optionsCourse, setOptionsCourse] = useState([]);
 
     const selectedDoc = route?.params?.selectedDoc;
+    
+    const fetchUserCourses = async () => {
+        try {
+          const userIdGetted = await UserService.getUserId();
+          const gettingUserCourses = await CreateCourseService.getCoursesByUserId(userIdGetted);
+    
+          const coursesOptions = gettingUserCourses.map(course => ({
+            label: course.name,
+            value: course.name
+          }));
+          
+          setOptionsCourse(coursesOptions);
+        } catch (error) {
+          console.error("Error al obtener cursos del usuario:", error);
+        }
+    };
+
+    // Cargar cursos cada vez que se regrese a esta pantalla
+    useFocusEffect(
+      useCallback(() => {
+        fetchUserCourses();
+      }, [])
+    );
 
     useEffect(() => {
         console.log("Documento recibido en CreateQueduScreen: ", selectedDoc);
@@ -48,32 +89,40 @@ const CreateQueduScreen = ({navigation, route}) => {
         setSelectedQuestions(value);
     };
     const handleCreateCourse = () => {
-        navigation.navigate("CreateCourseScreen");
-    };
+        navigation.navigate("CreateCourseScreen", { onCourseCreated: fetchUserCourses });
+      };
+    
     
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
+            const userIdGetted = await UserService.getUserId();
+
+            // Obtener el label correspondiente al value seleccionado para course y questions
+            //const selectedCourseLabel = optionsCourse.find(option => option.value === selectedCourse)?.label;
+            //const selectedQuestionsLabel = optionsNumberQuestion.find(option => option.value === selectedQuestions)?.label;
+
             const formData = new FormData();
+            formData.append('userId', userIdGetted);
             formData.append('queduName', queduName);
-            formData.append('course', selectedCourse);
+            formData.append('courseName', selectedCourse);
             formData.append('questions', selectedQuestions);
             formData.append('document', {
                 uri: selectedDoc.assets[0].uri,
                 type: selectedDoc.assets[0].mimeType,
                 name: selectedDoc.assets[0].name
             })
+            // debug:
+            console.log("ID del usuario: ", userIdGetted);
+            console.log("Nombre del quedu: ", userIdGetted);
+            console.log("Curso seleccionado: ", selectedCourse);
+            console.log("cantidad de preguntas seleccionada: ", selectedQuestions);
             console.log('Creando Quedu...')
 
-            try {
-                const response = await axios.post("http://192.168.0.19:3000/api/user/course/quedu/generateQuedu", formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                console.log("Respuesta del servidor:", response.data);
-            } catch (error) {
-                console.log("Error al enviar datos:", error);
-            }
+            const queduGenerated = await QueduServices.generateQuedu(formData);
+
+            const insertQuedu = await QueduServices.createQueduInUser(queduGenerated);
+
+            console.log("quedu generado correctamente: ", queduGenerated);
         }
     }
 

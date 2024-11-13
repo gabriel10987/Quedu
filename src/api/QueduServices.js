@@ -11,10 +11,26 @@ class QueduServices {
         }
     }
 
-    // Define el método handleError
-    static handleError(error) {
-        console.error("Error en la solicitud:", error);
-        return new Error("Ocurrió un error al procesar la solicitud.");
+    static async generateQuedu(formData){
+        try {
+            const response = await apiClient.post("/user/course/quedu/generateQuedu", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
+
+    static async createQueduInUser(queduInfo){
+        try {
+            const response = await apiClient.post("/user/course/quedu/new", queduInfo);
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
     }
 
     static async updateQuedu(userId, queduId, solved, successPercentaje, attempt) {
@@ -24,6 +40,12 @@ class QueduServices {
         } catch (error) {
             throw this.handleError(error);
         }
+    }
+
+    // Define el método handleError
+    static handleError(error) {
+        console.error("Error en la solicitud:", error);
+        return new Error("Ocurrió un error al procesar la solicitud.");
     }
 }
 
