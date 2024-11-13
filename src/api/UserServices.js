@@ -55,6 +55,25 @@ class UserService {
     }
   }
 
+  // Obtener username del usuario del token
+  static async getUserName() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error("Token no disponible");
+      }
+
+      const decoded = jwtDecode(token);
+      // debug
+      //console.log("imprimiendo decode: ", decoded);
+      const userName = decoded.username; // Ajusta 'userId' o 'sub' según el token
+      return userName;
+    } catch (error) {
+      console.error("Error al obtener el ID del usuario", error);
+      return null;
+    }
+  }
+
   // Obtener todos los usuarios (requiere autenticación)
   static async getUsers() {
     try {
