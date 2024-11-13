@@ -68,7 +68,7 @@ const CreateQueduScreen = ({navigation, route}) => {
 
             const queduGenerated = await QueduServices.generateQuedu(formData);
 
-            const insertQuedu = QueduServices.createQueduInUser(queduGenerated);
+            const insertQuedu = await QueduServices.createQueduInUser(queduGenerated);
 
             console.log("quedu generado correctamente: ", queduGenerated);
         }

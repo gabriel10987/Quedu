@@ -1,5 +1,6 @@
 import apiClient from './ApiClient'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { jwtDecode } from 'jwt-decode';
 
 class UserService {
   // Registro de usuario
@@ -32,6 +33,25 @@ class UserService {
       await AsyncStorage.removeItem('token');
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
+    }
+  }
+
+  // Obtener ID del usuario del token
+  static async getUserId() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error("Token no disponible");
+      }
+
+      const decoded = jwtDecode(token);
+      // debug
+      // console.log("imprimiendo decode: ", decoded);
+      const userId = decoded._id; // Ajusta 'userId' o 'sub' según el token
+      return userId;
+    } catch (error) {
+      console.error("Error al obtener el ID del usuario", error);
+      return null;
     }
   }
 
