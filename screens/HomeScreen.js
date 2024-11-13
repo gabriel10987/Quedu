@@ -51,6 +51,7 @@ const HomeScreen = ({ navigation }) => {
 
       const userId = userIdGetted; // Aquí debes poner el ID del usuario autenticado
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
+      console.log("Cursos del usuario: ", userCourses);
       const sortedCourses = userCourses.slice(-4).reverse(); 
       setCursos(sortedCourses);
     } catch (error) {

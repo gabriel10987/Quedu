@@ -6,9 +6,10 @@ import CustomTextInput from '../../components/common/TextInput';
 import CustomDropdown from '../../components/common/CustomDropdown';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../src/colors';
-import axios from 'axios';
 import QueduServices from '../../src/api/QueduServices';
-
+import UserService from '../../src/api/UserServices';
+/*
+// puede servir para usar ids de cursos o algo asi
 const optionsCourse = [
     { label: 'Matemática', value: '1' },
     { label: 'Lenguaje', value: '2' },
@@ -16,10 +17,22 @@ const optionsCourse = [
 ];
 
 const optionsNumberQuestion = [
-    { label: '5', value: '1' },
-    { label: '10', value: '2' },
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+];
+*/
+
+// datos estaticos pasando el valor(Value)
+const optionsCourse = [
+    { label: 'Matemática', value: 'Matemática' },
+    { label: 'Lenguaje', value: 'Lenguaje' },
+    { label: 'Programación', value: 'Programación' },
 ];
 
+const optionsNumberQuestion = [
+    { label: '1 pregunta', value: '1' },
+    { label: '2 preguntas', value: '2' },
+];
 const CreateQueduScreen = ({navigation, route}) => {
 
     const [queduName, setQueduName] = useState('');
@@ -54,8 +67,14 @@ const CreateQueduScreen = ({navigation, route}) => {
     
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
+            const userIdGetted = await UserService.getUserId();
+
+            // Obtener el label correspondiente al value seleccionado para course y questions
+            //const selectedCourseLabel = optionsCourse.find(option => option.value === selectedCourse)?.label;
+            //const selectedQuestionsLabel = optionsNumberQuestion.find(option => option.value === selectedQuestions)?.label;
+
             const formData = new FormData();
-            formData.append('userId', '672260105dfc9618f5ea62c3');
+            formData.append('userId', userIdGetted);
             formData.append('queduName', queduName);
             formData.append('courseName', selectedCourse);
             formData.append('questions', selectedQuestions);
@@ -64,6 +83,11 @@ const CreateQueduScreen = ({navigation, route}) => {
                 type: selectedDoc.assets[0].mimeType,
                 name: selectedDoc.assets[0].name
             })
+            // debug:
+            console.log("ID del usuario: ", userIdGetted);
+            console.log("Nombre del quedu: ", userIdGetted);
+            console.log("Curso seleccionado: ", selectedCourse);
+            console.log("cantidad de preguntas seleccionada: ", selectedQuestions);
             console.log('Creando Quedu...')
 
             const queduGenerated = await QueduServices.generateQuedu(formData);
