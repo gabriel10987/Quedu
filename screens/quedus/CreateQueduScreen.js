@@ -15,8 +15,8 @@ const optionsCourse = [
 ];
 
 const optionsNumberQuestion = [
-    { label: '5', value: '1' },
-    { label: '10', value: '2' },
+    { label: '5', value: '5' },
+    { label: '10', value: '10' },
 ];
 
 const CreateQueduScreen = ({navigation, route}) => {
@@ -51,6 +51,7 @@ const CreateQueduScreen = ({navigation, route}) => {
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
             const formData = new FormData();
+            formData.append('userId', '67315108e52157020d86a3fb');
             formData.append('queduName', queduName);
             formData.append('course', selectedCourse);
             formData.append('questions', selectedQuestions);
@@ -62,7 +63,7 @@ const CreateQueduScreen = ({navigation, route}) => {
             console.log('Creando Quedu...')
 
             try {
-                const response = await axios.post("http://192.168.0.19:3000/api/user/course/quedu/generateQuedu", formData, {
+                const response = await axios.post("https://t15kvnp6-3000.brs.devtunnels.ms/api/user/course/quedu/generateQuedu", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
