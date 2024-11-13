@@ -7,6 +7,7 @@ import CustomDropdown from '../../components/common/CustomDropdown';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../src/colors';
 import axios from 'axios';
+import QueduServices from '../../src/api/QueduServices';
 
 const optionsCourse = [
     { label: 'Matemática', value: '1' },
@@ -54,8 +55,9 @@ const CreateQueduScreen = ({navigation, route}) => {
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
             const formData = new FormData();
+            formData.append('userId', '672260105dfc9618f5ea62c3');
             formData.append('queduName', queduName);
-            formData.append('course', selectedCourse);
+            formData.append('courseName', selectedCourse);
             formData.append('questions', selectedQuestions);
             formData.append('document', {
                 uri: selectedDoc.assets[0].uri,
@@ -64,16 +66,11 @@ const CreateQueduScreen = ({navigation, route}) => {
             })
             console.log('Creando Quedu...')
 
-            try {
-                const response = await axios.post("https://gq7cwz38-3000.brs.devtunnels.ms/api/user/course/quedu/generateQuedu", formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                console.log("Respuesta del servidor:", response.data);
-            } catch (error) {
-                console.log("Error al enviar datos:", error);
-            }
+            const queduGenerated = await QueduServices.generateQuedu(formData);
+
+            const insertQuedu = QueduServices.createQueduInUser(queduGenerated);
+
+            console.log("quedu generado correctamente: ", queduGenerated);
         }
     }
 

@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
 
   const fetchCourses = async () => {
     try {
-      const userId = "6731625943a8b1e4299b732d"; // Aquí debes poner el ID del usuario autenticado
+      const userId = "672260105dfc9618f5ea62c3"; // Aquí debes poner el ID del usuario autenticado
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
       const sortedCourses = userCourses.slice(-4).reverse(); 
       setCursos(sortedCourses);

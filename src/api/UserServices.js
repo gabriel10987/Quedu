@@ -75,15 +75,6 @@ class UserService {
     }
   }
 
-  // Función para cerrar sesión
-  static async logout() {
-    try {
-      await AsyncStorage.removeItem('token'); // Elimina el token del AsyncStorage
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
-  }
-
 }
 
 export default UserService;
