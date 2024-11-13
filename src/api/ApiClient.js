@@ -7,7 +7,7 @@ import { Platform } from 'react-native';
 const API_URL = 'https://t15kvnp6-3000.brs.devtunnels.ms/api'; // Cambia según tu entorno
 // Definir la URL base dependiendo del entorno
 
-//const API_URL = Platform.OS === 'web' ? 'https://x08n6n2m-3000.brs.devtunnels.ms/api' : 'https://x08n6n2m-3000.brs.devtunnels.ms/api';
+//const API_URL = Platform.OS === 'web' ? 'https://gq7cwz38-3000.brs.devtunnels.ms/api' : 'https://gq7cwz38-3000.brs.devtunnels.ms/api';
 
 //const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://10.0.2.2:3000/api';
 //const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://192.168.0.19:3000/api';

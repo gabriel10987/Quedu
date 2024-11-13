@@ -7,7 +7,7 @@ import colors from "../src/colors";
 import CreateCourseService from "../src/api/CreateCourseService";
 import * as DocumentPicker from "expo-document-picker";
 import { useFocusEffect } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import UserService from "../src/api/UserServices";
 
 const HomeScreen = ({ navigation }) => {
   const handleUpload = async () => {
@@ -41,14 +41,17 @@ const HomeScreen = ({ navigation }) => {
 
   const fetchCourses = async () => {
     try {
-      // Obtener el userId de AsyncStorage
-      const userId = await AsyncStorage.getItem("userId");
 
-      // Mostrar el userId en la consola para verificación
-      console.log(`El id obtenido del asyncstorage -> ${userId}`);
-      //const userId = "67315108e52157020d86a3fb"; // Aquí debes poner el ID del usuario autenticado
+      const userIdGetted = await UserService.getUserId();
+
+      //debug
+      console.log("Sacando userID", userIdGetted);
+      console.log("tipo de userID: ", typeof(userIdGetted));
+
+      const userId = userIdGetted; // Aquí debes poner el ID del usuario autenticado
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
-      const sortedCourses = userCourses.slice(-4).reverse();
+      console.log("Cursos del usuario: ", userCourses);
+      const sortedCourses = userCourses.slice(-4).reverse(); 
       setCursos(sortedCourses);
     } catch (error) {
       console.error("Error al obtener los cursos:", error);

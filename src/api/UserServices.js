@@ -1,5 +1,6 @@
 import apiClient from './ApiClient'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { jwtDecode } from 'jwt-decode';
 
 class UserService {
   // Registro de usuario
@@ -32,6 +33,44 @@ class UserService {
       await AsyncStorage.removeItem('token');
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
+    }
+  }
+
+  // Obtener ID del usuario del token
+  static async getUserId() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error("Token no disponible");
+      }
+
+      const decoded = jwtDecode(token);
+      // debug
+      // console.log("imprimiendo decode: ", decoded);
+      const userId = decoded._id; // Ajusta 'userId' o 'sub' según el token
+      return userId;
+    } catch (error) {
+      console.error("Error al obtener el ID del usuario", error);
+      return null;
+    }
+  }
+
+  // Obtener username del usuario del token
+  static async getUserName() {
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error("Token no disponible");
+      }
+
+      const decoded = jwtDecode(token);
+      // debug
+      //console.log("imprimiendo decode: ", decoded);
+      const userName = decoded.username; // Ajusta 'userId' o 'sub' según el token
+      return userName;
+    } catch (error) {
+      console.error("Error al obtener el ID del usuario", error);
+      return null;
     }
   }
 
@@ -72,15 +111,6 @@ class UserService {
         status: 500,
         message: 'Error al procesar la petición',
       };
-    }
-  }
-
-  // Función para cerrar sesión
-  static async logout() {
-    try {
-      await AsyncStorage.removeItem('token'); // Elimina el token del AsyncStorage
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
     }
   }
 
