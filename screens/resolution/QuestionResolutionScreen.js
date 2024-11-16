@@ -6,6 +6,7 @@ import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
 import Button from "../../components/common/Button";
 import QueduServices from "../../src/api/QueduServices";
+import { Ionicons } from "@expo/vector-icons";
 
 const userId = "67315108e52157020d86a3fb"; // ----------------------------- aqui reemplazaré el id del usuario
 
@@ -132,9 +133,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   feedbackText: {
-    marginTop: 10,
+    marginVertical: 10,
     fontSize: 14,
-    color: colors.gray,
+    color: colors.feedback,
     fontFamily: "BellotaText-Italic",
   },
 });

@@ -27,7 +27,9 @@ export const Alternative = ({ text, onSelect, selected, style, disabled, correct
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 10,
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'Quicksand-Regular',
   },
   default: {
@@ -59,14 +61,17 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: colors.lightBlue,
-    borderColor: colors.darkBlue,
+    borderColor: colors.white,
+    color: colors.white,
   },
   correctAnswer: {
-    backgroundColor: 'rgba(0, 255, 0, 0.2)',
-    borderColor: 'green',
+    borderColor: colors.success,
+    color: colors.success,
+    fontFamily: 'Quicksand-SemiBold',
   },
   incorrectAnswer: {
-    backgroundColor: 'rgba(255, 0, 0, 0.2)',
-    borderColor: 'red',
+    borderColor: colors.error,
+    color: colors.error,
+    fontFamily: 'Quicksand-SemiBold',
   },
 });
