@@ -7,8 +7,9 @@ import { Alternative } from "../../components/cards/questions/Alternative";
 import Button from "../../components/common/Button";
 import QueduServices from "../../src/api/QueduServices";
 import { Ionicons } from "@expo/vector-icons";
+import UserService from "../../src/api/UserServices";
 
-const userId = "67315108e52157020d86a3fb"; // ----------------------------- aqui reemplazaré el id del usuario
+
 
 const QuestionResolutionScreen = ({ navigation }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -25,6 +26,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchLastQuedu = async () => {
       try {
+        const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
         const quedu = await QueduServices.getLastQuedu(userId);
         setQuedu(quedu);  // Actualizar el estado con el último personalQuedu
         setQuestions(quedu.questions);  // Actualizar el estado con las preguntas del quedu
@@ -67,6 +69,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
 
       const updateQuedu = async () => {
         try {
+          const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
           await QueduServices.updateQuedu(userId, queduId, solved, successPercentage, attempt);
         } catch (error) {
           console.error("Error al actualizar el quedu:", error);
