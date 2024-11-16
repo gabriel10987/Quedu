@@ -4,13 +4,14 @@ import AppBar from "../../components/AppBar";
 import { Section } from "../../components/cards/section/Section";
 import colors from "../../src/colors";
 import CreateCourseService from "../../src/api/CreateCourseService";
+import UserService from "../../src/api/UserServices";
 
 const CourseListScreen = ({ navigation }) => {
   const [courses, setCourses] = useState([]);
 
   const fetchAllCourses = async () => {
     try {
-      const userId = "6731625943a8b1e4299b732d"; 
+      const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
   
       // Ordenar los cursos por el campo `_id` en orden descendente
