@@ -42,6 +42,15 @@ class QueduServices {
         }
     }
 
+    static async getAllQuedusFormatted(userId){
+        try {
+            const response = await apiClient.get(`/user/allQuedus/${userId}`);
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
+
     // Define el método handleError
     static handleError(error) {
         console.error("Error en la solicitud:", error);
