@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 // URL base para el API
 //const API_URL = 'http://10.0.2.2:3000/api'; // URL para emulador Android
-const API_URL = 'https://7hj4bhc2-3000.brs.devtunnels.ms/api'; // Cambia según tu entorno 
+const API_URL = 'https://t15kvnp6-3000.brs.devtunnels.ms/api'; // Cambia según tu entorno 
 // Definir la URL base dependiendo del entorno
 
 //const API_URL = Platform.OS === 'web' ? 'https://gq7cwz38-3000.brs.devtunnels.ms/api' : 'https://gq7cwz38-3000.brs.devtunnels.ms/api';
