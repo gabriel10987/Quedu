@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
-import colors from "../../src/colors";
+import React from "react";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
 import AppBar from "../../components/AppBar";
 import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
 import Button from "../../components/common/Button";
+import colors from "../../src/colors";
+import { useState, useEffect } from "react";
 import QueduServices from "../../src/api/QueduServices";
 import UserService from "../../src/api/UserServices";
 
-const QuestionResolutionScreen = ({ navigation }) => {
+const NewQuestionResolutionScreen = ({
+  navigation,
+  queduId = "673152341edba353559a496c",
+}) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -21,21 +25,20 @@ const QuestionResolutionScreen = ({ navigation }) => {
   const [successPercentage, setSuccessPercentage] = useState(0);
 
   useEffect(() => {
-    const fetchLastQuedu = async () => {
+    const fetchQuedu = async () => {
       try {
         const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
-        const quedu = await QueduServices.getLastQuedu(userId);
-        setQuedu(quedu);  // Actualizar el estado con el último personalQuedu
-        setQuestions(quedu.questions);  // Actualizar el estado con las preguntas del quedu
-        setNumberOfQuestions(quedu.questions.length);  // Actualizar el estado con el número de preguntas
+        const quedu = await QueduServices.getPersonalQueduById(userId, queduId);
+        setQuedu(quedu); // Actualizar el estado con el último personalQuedu
+        setQuestions(quedu.questions); // Actualizar el estado con las preguntas del quedu
+        setNumberOfQuestions(quedu.questions.length); // Actualizar el estado con el número de preguntas
       } catch (error) {
         console.error("Error al obtener el último quedu:", error);
       }
     };
-  
-    fetchLastQuedu();
+
+    fetchQuedu();
   }, []);
-  
 
   useEffect(() => {
     const allQuestionsAnswered = questions.every(
@@ -45,7 +48,9 @@ const QuestionResolutionScreen = ({ navigation }) => {
   }, [selectedAnswers]);
 
   const handleSelect = (questionId, answerId, answerCorrect) => {
-    answerCorrect ? setCorrectAnswers(correctAnswers + 1) : setCorrectAnswers(correctAnswers);
+    answerCorrect
+      ? setCorrectAnswers(correctAnswers + 1)
+      : setCorrectAnswers(correctAnswers);
     if (!showResults) {
       setSelectedAnswers({
         ...selectedAnswers,
@@ -54,23 +59,42 @@ const QuestionResolutionScreen = ({ navigation }) => {
     }
   };
 
+  const updateQuedu = async () => {
+    try {
+      const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
+      await QueduServices.updateQuedu(
+        userId,
+        queduId,
+        solved,
+        successPercentage,
+        attempt
+      );
+    } catch (error) {
+      console.error("Error al actualizar el quedu:", error);
+    }
+  };
+
   const handleComplete = () => {
     if (attempt == 0) {
       setBtnTitle("Finalizar");
       setShowResults(true);
-      setAttempt(1);
+      setAttempt(quedu.attempt + 1);
       setSuccessPercentage((correctAnswers / numberOfQuestions) * 100);
     } else {
-      setBtnTitle("Finalizar");
-      setShowResults(true);
       const queduId = quedu._id;
       const solved = true;
-      
+      console.log(attempt);
 
       const updateQuedu = async () => {
         try {
           const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
-          await QueduServices.updateQuedu(userId, queduId, solved, successPercentage, attempt);
+          await QueduServices.updateQuedu(
+            userId,
+            queduId,
+            solved,
+            successPercentage,
+            attempt
+          );
         } catch (error) {
           console.error("Error al actualizar el quedu:", error);
         }
@@ -78,10 +102,10 @@ const QuestionResolutionScreen = ({ navigation }) => {
 
       updateQuedu();
 
-      navigation.navigate('HomeStack');
+      navigation.navigate("HomeStack");
+
+      console.log("Cuestionario completado", selectedAnswers);
     }
-    
-    console.log("Cuestionario completado", selectedAnswers);
   };
 
   return (
@@ -94,29 +118,30 @@ const QuestionResolutionScreen = ({ navigation }) => {
             <Question number={index + 1} text={question.question} />
             {question.answers.map((answer) => (
               <View key={answer._id}>
-                  <Alternative
-                    text={answer.answer}
-                    selected={selectedAnswers[question._id] === answer._id}
-                    onSelect={() => handleSelect(question._id, answer._id, answer.correct)}
-                    disabled={showResults}
-                    correct={showResults && answer.correct}
-                  />
-                  {showResults && selectedAnswers[question._id] === answer._id && (
-                    <Text style={styles.feedbackText}>
-                      {question.feedback}
-                    </Text>
+                <Alternative
+                  text={answer.answer}
+                  selected={selectedAnswers[question._id] === answer._id}
+                  onSelect={() =>
+                    handleSelect(question._id, answer._id, answer.correct)
+                  }
+                  disabled={showResults}
+                  correct={showResults && answer.correct}
+                />
+                {showResults &&
+                  selectedAnswers[question._id] === answer._id && (
+                    <Text style={styles.feedbackText}>{question.feedback}</Text>
                   )}
               </View>
-
             ))}
           </View>
         ))}
-        <Button 
-          title={btnTitle} 
-          backgroundColor={colors.darkBlue} 
-          textColor={colors.white} 
-          onPress={handleComplete} disabled={isButtonDisabled || showResults} 
-          style={{ width: '35%' }}  
+        <Button
+          title={btnTitle}
+          backgroundColor={colors.darkBlue}
+          textColor={colors.white}
+          onPress={handleComplete}
+          disabled={isButtonDisabled || showResults}
+          style={{ width: "35%" }}
         />
       </ScrollView>
     </View>
@@ -130,7 +155,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    alignItems: 'center'
+    alignItems: "center",
   },
   questionContainer: {
     marginBottom: 30,
@@ -143,4 +168,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuestionResolutionScreen;
+export default NewQuestionResolutionScreen;
