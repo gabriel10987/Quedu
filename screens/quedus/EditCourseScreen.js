@@ -30,6 +30,7 @@ const EditCourseScreen = ({ navigation, route }) => {
 
       if (response?.message) {
         Alert.alert('Éxito', response.message);
+        
         navigation.goBack();
       } else {
         Alert.alert('Error', 'Hubo un error inesperado al actualizar el curso.');
