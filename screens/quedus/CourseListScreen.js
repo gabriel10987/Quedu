@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import AppBar from "../../components/AppBar";
 import { Section } from "../../components/cards/section/Section";
 import colors from "../../src/colors";
 import CreateCourseService from "../../src/api/CreateCourseService";
 import UserService from "../../src/api/UserServices";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CourseListScreen = ({ navigation }) => {
   const [courses, setCourses] = useState([]);
@@ -21,11 +22,16 @@ const CourseListScreen = ({ navigation }) => {
       console.error("Error al obtener todos los cursos:", error);
     }
   };
-  
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllCourses();
+    }, [])
+  );
+
+  const handleCourseDeleted = () => {
     fetchAllCourses();
-  }, []);
+  }
 
   const handleCoursePress = (course) => {
     navigation.navigate("CourseDetail", { course });
@@ -43,6 +49,7 @@ const CourseListScreen = ({ navigation }) => {
           onItemPress={handleCoursePress} 
           data={courses}
           section="Cursos"
+          onCourseDeleted={handleCourseDeleted}
         />
       </ScrollView>
     </View>
