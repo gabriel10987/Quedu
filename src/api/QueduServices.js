@@ -47,7 +47,15 @@ class QueduServices {
         console.error("Error en la solicitud:", error);
         return new Error("Ocurrió un error al procesar la solicitud.");
     }
-}
 
+    static async getPersonalQueduById(userId, queduId) {
+        try {
+            const response = await apiClient.get(`/user/${userId}/quedus/${queduId}`);
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
+}
 
 export default QueduServices;
