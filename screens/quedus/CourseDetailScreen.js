@@ -39,6 +39,7 @@ const CourseDetailScreen = ({ route, navigation }) => {
           icon1="bookmark"
           icon2="arrow-up"
           data={quedus}
+          section="Quedus"
         />
       </ScrollView>
     </View>

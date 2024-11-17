@@ -95,6 +95,11 @@ const HomeScreen = ({ navigation }) => {
     }
   };
   */
+
+  const handleCourseDeleted = () => {
+    fetchCoursesAndQuedus();
+  }
+
   useFocusEffect(
     useCallback(() => {
       //fetchCourses(); // Llamar a fetchCourses cada vez que la pantalla recibe foco
@@ -152,6 +157,7 @@ const HomeScreen = ({ navigation }) => {
           section="Cursos"
           onIcon1Press={handleCreateCourse}
           onIcon2Press={handleCourseListPress}
+          onCourseDeleted={handleCourseDeleted}
         />
       </ScrollView>
     </View>

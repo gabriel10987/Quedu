@@ -42,6 +42,7 @@ const CourseListScreen = ({ navigation }) => {
           icon2="arrow-up"
           onItemPress={handleCoursePress} 
           data={courses}
+          section="Cursos"
         />
       </ScrollView>
     </View>
