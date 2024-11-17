@@ -43,17 +43,14 @@ const CourseDetailScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <AppBar navigation={navigation} />
       <ScrollView contentContainerStyle={styles.content}>
-        {errorMessage ? (
-          <Text style={styles.errorMessage}>{errorMessage}</Text>
-        ) : (
-          <Section
-            name={course.name}
-            color={colors.lightBlue}
-            icon1="bookmark"
-            icon2="arrow-up"
-            data={quedus} 
-          />
-        )}
+        <Section
+          name={course.name}
+          color={colors.lightBlue}
+          icon1="bookmark"
+          icon2="arrow-up"
+          data={quedus}
+          section="Quedus"
+        />
       </ScrollView>
     </View>
   );

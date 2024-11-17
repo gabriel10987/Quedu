@@ -22,8 +22,28 @@ class CreateCourseService {
       throw error; // Lanza el error para que pueda ser manejado en el frontend
     }
   }
+
+  static async updateCourse(userId, courseId, courseName) {
+    try {
+      const response = await apiClient.put('/course/update', { userId, courseId, courseName });
+      return response.data;
+    } catch (error) {
+      console.error("Error al editar el curso:", error);
+      throw error;
+    }
+  }
+
+  static async deleteCourse(userId, courseId) {
+    try {
+      const response = await apiClient.delete('/course/delete', {
+        data: { userId, courseId }, // Elimina con un payload en el cuerpo
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error al eliminar el curso:", error);
+      throw error;
+    }
+  }
 }
-
-
 
 export default CreateCourseService;
