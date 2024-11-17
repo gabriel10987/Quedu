@@ -6,13 +6,12 @@ import { SectionHeader } from "../../components/cards/section/SectionHeader";
 import { SectionCommunity } from "../../components/cards/section/community/SectionCommunity";
 import CommunityServices from "../../src/api/CommunityServices";
 
-const userId = "67315108e52157020d86a3fb"; // ----------------------------- aqui reemplazaré el id del usuario
+const userId = "67390a53943c2957c92a7b8b"; // ----------------------------- aqui reemplazaré el id del usuario
 
 const CommunitiesScreen = ({ navigation }) => {
   const [communities, setCommunities] = useState([]);
 
   useEffect(() => {
-
     const fetchCommunities = async () => {
       try {
         const response = await CommunityServices.getAllCommunities();
@@ -30,14 +29,21 @@ const CommunitiesScreen = ({ navigation }) => {
     navigation.navigate("CommunityDetail", { communityId });
   };
 
+  const handleAddCommunityPress = () => {
+    // Aquí navegamos a la pantalla de creación de comunidad
+    navigation.navigate("CreateComunityScreen");
+  };
+
   return (
     <View style={styles.container}>
       <AppBar navigation={navigation} />
       <View style={styles.title}>
+        {/* Pasamos la función handleAddCommunityPress al icono "add" */}
         <SectionHeader
           name="Mis comunidades"
           color={colors.darkBlue}
           icon2="add"
+          onIcon2Press={handleAddCommunityPress}
         />
       </View>
       <ScrollView contentContainerStyle={styles.content}>
@@ -65,8 +71,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   title: {
-    paddingHorizontal: 20
-   }
+    paddingHorizontal: 20,
+  },
 });
 
 export default CommunitiesScreen;

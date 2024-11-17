@@ -11,12 +11,17 @@ class CommunityServices {
         }
     }
 
-    static async createCommunity(community) {
+    static async createCommunity(name, numberOfQuedus, image) {
         try {
-            const response = await apiClient.post('/community/new', community);
-            return response.data;
+          const response = await apiClient.post('/community/new', {
+            name,
+            numberOfQuedus,
+            image,
+          });
+          return response.data;
         } catch (error) {
-            throw this.handleError(error);
+          console.error('Error al crear la comunidad:', error);
+          throw error;
         }
     }
 
