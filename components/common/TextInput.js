@@ -2,7 +2,7 @@ import React from "react";
 import {TextInput, StyleSheet, View} from "react-native";
 import colors from "../../src/colors";
 
-const CustomTextInput = ({value, onChangeText, placeholder = 'Escribir', borderColor = '#ccc', style }) => {
+const CustomTextInput = ({value, onChangeText, placeholder = 'Escribir', borderColor = '#ccc', style, isPassword = false }) => {
     return (
         <View style={[styles.inputContainer, style]}>
             <TextInput
@@ -11,6 +11,7 @@ const CustomTextInput = ({value, onChangeText, placeholder = 'Escribir', borderC
                 onChangeText={onChangeText}
                 placeholder={placeholder}
                 placeholderTextColor={colors.gray}
+                secureTextEntry={isPassword}
             />
         </View>
     );

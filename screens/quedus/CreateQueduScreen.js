@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'Quicksand-Regular',
         color: colors.darkBlue,
+        marginHorizontal: 24,
     },
     dropdownWithIcon: {
         width: '60%',
