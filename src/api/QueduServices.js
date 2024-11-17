@@ -57,9 +57,12 @@ class QueduServices {
         return new Error("Ocurrió un error al procesar la solicitud.");
     }
 
-    static async getPersonalQueduById(userId, queduId) {
+    static async getPersonalQueduById(userId, courseId, queduId) {
         try {
-            const response = await apiClient.get(`/user/${userId}/quedus/${queduId}`);
+            const response = await apiClient.get(`/user/quedu/${userId}/${courseId}/${queduId}`);
+            console.log("------------------------------------------------------");
+            console.log("mi respuesta de mi quedu solicitado: ", response.data);
+            console.log("------------------------------------------------------");
             return response.data;
         } catch (error) {
             throw this.handleError(error);

@@ -11,7 +11,7 @@ import UserService from "../../src/api/UserServices";
 
 const NewQuestionResolutionScreen = ({
   navigation,
-  queduId = "673152341edba353559a496c",
+  route
 }) => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
@@ -24,11 +24,17 @@ const NewQuestionResolutionScreen = ({
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [successPercentage, setSuccessPercentage] = useState(0);
 
+  const { courseId, queduId  } = route.params; // Recupera los parámetros pasados // quedu id dinamico
+
+  //const queduId = '67394336fa172e2c21a87980';
+
   useEffect(() => {
     const fetchQuedu = async () => {
       try {
         const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
-        const quedu = await QueduServices.getPersonalQueduById(userId, queduId);
+        const quedu = await QueduServices.getPersonalQueduById(userId, courseId, queduId);
+        console.log("userId entregado: ", userId, " QueduId entregado: ", queduId);
+        console.log("Imprimiendo denuevo mi quedu obetenido: ", quedu);
         setQuedu(quedu); // Actualizar el estado con el último personalQuedu
         setQuestions(quedu.questions); // Actualizar el estado con las preguntas del quedu
         setNumberOfQuestions(quedu.questions.length); // Actualizar el estado con el número de preguntas

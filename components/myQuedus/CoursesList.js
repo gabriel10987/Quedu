@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native'; // Necesario para mane
 import UserService from '../../src/api/UserServices';
 import QueduServices from '../../src/api/QueduServices';
 import colors from '../../src/colors';
+import NewQuestionResolutionScreen from '../../screens/resolution/NewQuestionResolutionScreen';
 
 const CoursesList = () => {
     const [courses, setCourses] = useState([]); // Para almacenar los datos dinámicos
@@ -60,7 +61,7 @@ const CoursesList = () => {
     const renderItem = ({ item }) => (
         <TouchableOpacity
             style={styles.itemContainer}
-            onPress={() => navigation.navigate('<VistaANavegar>', {
+            onPress={() => navigation.navigate('NewQuestionResolutionScreen', {
                 //pasar paraemtros
                 courseId: item.courseId,
                 queduId: item.queduId,
