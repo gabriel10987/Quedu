@@ -6,6 +6,7 @@ import { Question } from "../../components/cards/questions/Question";
 import { Alternative } from "../../components/cards/questions/Alternative";
 import Button from "../../components/common/Button";
 import QueduServices from "../../src/api/QueduServices";
+import { Ionicons } from "@expo/vector-icons";
 import UserService from "../../src/api/UserServices";
 
 
@@ -135,9 +136,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   feedbackText: {
-    marginTop: 10,
+    marginVertical: 10,
     fontSize: 14,
-    color: colors.gray,
+    color: colors.feedback,
     fontFamily: "BellotaText-Italic",
   },
 });

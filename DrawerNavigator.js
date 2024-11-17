@@ -11,7 +11,6 @@ import CreateCourseScreen from './screens/CreateCourseScreen';
 import HomeStack from './navigation/HomeStack';
 import CreateQueduScreen from './screens/quedus/CreateQueduScreen';
 import CommunitiesScreen from './screens/communities/CommunitiesScreen';
-import AuthStack from './navigation/AuthStack';
 
 const Drawer = createDrawerNavigator();
 
