@@ -6,8 +6,6 @@ import { SectionHeader } from "../../components/cards/section/SectionHeader";
 import { SectionCommunity } from "../../components/cards/section/community/SectionCommunity";
 import CommunityServices from "../../src/api/CommunityServices";
 
-const userId = "67315108e52157020d86a3fb"; // ----------------------------- aqui reemplazaré el id del usuario
-
 const CommunitiesScreen = ({ navigation }) => {
   const [communities, setCommunities] = useState([]);
 

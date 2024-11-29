@@ -10,7 +10,6 @@ const AppBar = ({ navigation }) => {
 
   const [userName, setUserName] = useState([]);
 
-  // useEffect para obtener los cursos del usuario
   useEffect(() => {
       const getUserName = async () => {
           try {
@@ -50,19 +49,6 @@ const AppBar = ({ navigation }) => {
     </View>
   );
 };
-
-// const Wave = () => (
-//     <Svg
-//       height="85"
-//       width="100%"
-//       style={styles.wave}
-//     >
-//       <Path
-//         d="M0,40 C100,100 400,0 540,100 L0,100 Z"
-//         fill="#fff"
-//       />
-//     </Svg>
-//   );
 
 const Wave = () => {
   const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);

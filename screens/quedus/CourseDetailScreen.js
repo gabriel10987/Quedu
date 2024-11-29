@@ -3,30 +3,44 @@ import { View, Text, StyleSheet } from "react-native";
 import AppBar from "../../components/AppBar";
 import { Section } from "../../components/cards/section/Section";
 import colors from "../../src/colors";
-import QuedusCourseService from "../../src/api/QuedusCourseService"; 
+import QuedusCourseService from "../../src/api/QuedusCourseService";
 import UserService from "../../src/api/UserServices";
 import { ScrollView } from "react-native-gesture-handler";
 
 const CourseDetailScreen = ({ route, navigation }) => {
   const { course } = route.params;
   const [quedus, setQuedus] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onPress = () => {
+    navigation.navigate("NewQuestionResolutionScreen", {
+      courseId: item.courseId,
+      queduId: item.queduId,
+    });
+  };
 
   useEffect(() => {
     const fetchQuedus = async () => {
       try {
-        const userId = await UserService.getUserId();  
+        const userId = await UserService.getUserId();
         if (!userId) {
           setErrorMessage("No se pudo obtener el ID del usuario.");
           return;
         }
 
-        const fetchedCourse = await QuedusCourseService.getQuedusByCourseId(userId, course._id);
-        
+        const fetchedCourse = await QuedusCourseService.getQuedusByCourseId(
+          userId,
+          course._id
+        );
+
         console.log("Datos de Quedus recibidos: ", fetchedCourse);
-        
-        if (fetchedCourse && Array.isArray(fetchedCourse.quedus) && fetchedCourse.quedus.length > 0) {
-          setQuedus(fetchedCourse.quedus);  
+
+        if (
+          fetchedCourse &&
+          Array.isArray(fetchedCourse.quedus) &&
+          fetchedCourse.quedus.length > 0
+        ) {
+          setQuedus(fetchedCourse.quedus);
         } else {
           setErrorMessage("Este curso no tiene quedus creados.");
         }
@@ -46,10 +60,9 @@ const CourseDetailScreen = ({ route, navigation }) => {
         <Section
           name={course.name}
           color={colors.lightBlue}
-          icon1="bookmark"
-          icon2="arrow-up"
           data={quedus}
           section="Quedus"
+          onItemPress={onPress}
         />
       </ScrollView>
     </View>

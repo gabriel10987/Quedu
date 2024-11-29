@@ -25,7 +25,7 @@ class CreateCourseService {
 
   static async updateCourse(userId, courseId, courseName) {
     try {
-      const response = await apiClient.put('/course/update', { userId, courseId, courseName });
+      const response = await apiClient.put('user/course/update', { userId, courseId, courseName });
       return response.data;
     } catch (error) {
       console.error("Error al editar el curso:", error);
@@ -35,7 +35,7 @@ class CreateCourseService {
 
   static async deleteCourse(userId, courseId) {
     try {
-      const response = await apiClient.delete('/course/delete', {
+      const response = await apiClient.delete('user/course/delete', {
         data: { userId, courseId }, // Elimina con un payload en el cuerpo
       });
       return response.data;

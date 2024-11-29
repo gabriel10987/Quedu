@@ -45,8 +45,6 @@ class UserService {
       }
 
       const decoded = jwtDecode(token);
-      // debug
-      // console.log("imprimiendo decode: ", decoded);
       const userId = decoded._id; // Ajusta 'userId' o 'sub' según el token
       return userId;
     } catch (error) {
@@ -64,8 +62,6 @@ class UserService {
       }
 
       const decoded = jwtDecode(token);
-      // debug
-      //console.log("imprimiendo decode: ", decoded);
       const userName = decoded.username; // Ajusta 'userId' o 'sub' según el token
       return userName;
     } catch (error) {

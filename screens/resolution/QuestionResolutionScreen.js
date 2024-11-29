@@ -23,7 +23,7 @@ const QuestionResolutionScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchLastQuedu = async () => {
       try {
-        const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
+        const userId = await UserService.getUserId();
         const quedu = await QueduServices.getLastQuedu(userId);
         setQuedu(quedu);  // Actualizar el estado con el último personalQuedu
         setQuestions(quedu.questions);  // Actualizar el estado con las preguntas del quedu

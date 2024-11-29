@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, StyleSheet, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Necesario para manejar navegación
+import { useNavigation } from '@react-navigation/native';
 import UserService from '../../src/api/UserServices';
 import QueduServices from '../../src/api/QueduServices';
 import colors from '../../src/colors';
-import NewQuestionResolutionScreen from '../../screens/resolution/NewQuestionResolutionScreen';
 
 const CoursesList = () => {
     const [courses, setCourses] = useState([]); // Para almacenar los datos dinámicos
@@ -62,7 +61,6 @@ const CoursesList = () => {
         <TouchableOpacity
             style={styles.itemContainer}
             onPress={() => navigation.navigate('NewQuestionResolutionScreen', {
-                //pasar paraemtros
                 courseId: item.courseId,
                 queduId: item.queduId,
             })}

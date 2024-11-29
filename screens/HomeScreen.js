@@ -4,7 +4,6 @@ import AppBar from "../components/AppBar";
 import { Section } from "../components/cards/section/Section";
 import UploadButton from "../components/UploadButton";
 import colors from "../src/colors";
-import CreateCourseService from "../src/api/CreateCourseService";
 import * as DocumentPicker from "expo-document-picker";
 import { useFocusEffect } from "@react-navigation/native";
 import UserService from "../src/api/UserServices";
@@ -44,9 +43,6 @@ const HomeScreen = ({ navigation }) => {
     try {
       const userIdGetted = await UserService.getUserId();
       const data = await UserService.getCoursesAndQuedus(userIdGetted);
-      console.log("********** mis nuevos datos *******************");
-      console.log(data);
-      console.log("***********************************************");
 
       // Obtener los 4 cursos más recientes
       const sortedCourses = data.sort((a, b) => {
@@ -75,43 +71,16 @@ const HomeScreen = ({ navigation }) => {
     }
   }
 
-  /*
-  const fetchCourses = async () => {
-    try {
-
-      const userIdGetted = await UserService.getUserId();
-
-      //debug
-      console.log("Sacando userID", userIdGetted);
-      console.log("tipo de userID: ", typeof(userIdGetted));
-
-      const userId = userIdGetted; // Aquí debes poner el ID del usuario autenticado
-      const userCourses = await CreateCourseService.getCoursesByUserId(userId);
-      console.log("Cursos del usuario: ", userCourses);
-      const sortedCourses = userCourses.slice(-4).reverse(); 
-      setCursos(sortedCourses);
-    } catch (error) {
-      console.error("Error al obtener los cursos:", error);
-    }
-  };
-  */
-
   const handleCourseDeleted = () => {
     fetchCoursesAndQuedus();
   }
 
   useFocusEffect(
     useCallback(() => {
-      //fetchCourses(); // Llamar a fetchCourses cada vez que la pantalla recibe foco
       fetchCoursesAndQuedus();
     }, [])
   );
-  /*
-  useEffect(() => {
-    const quedusData = [];
-    setQuedus(quedusData);
-  }, []);
-  */
+
   const handleCoursePress = (course) => {
     navigation.navigate("CourseDetail", { course });
   };

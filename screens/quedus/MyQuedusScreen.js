@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import AppBar from '../../components/AppBar';
 import colors from '../../src/colors';
 import CoursesList from '../../components/myQuedus/CoursesList';
@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     tittle: {
-        fontSize: 24,
+        fontSize: 20,
         fontFamily: "Quicksand-SemiBold",
-        color: colors.darkBlue
+        color: colors.darkBlue,
+        marginBottom: 4
     }
 
   });

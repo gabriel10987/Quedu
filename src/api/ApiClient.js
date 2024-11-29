@@ -1,17 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
 
 // URL base para el API
-//const API_URL = 'http://10.0.2.2:3000/api'; // URL para emulador Android
-const API_URL = 'https://t15kvnp6-3000.brs.devtunnels.ms/api'; // Cambia según tu entorno 
-// Definir la URL base dependiendo del entorno
-
-//const API_URL = Platform.OS === 'web' ? 'https://gq7cwz38-3000.brs.devtunnels.ms/api' : 'https://gq7cwz38-3000.brs.devtunnels.ms/api';
-
-//const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://10.0.2.2:3000/api';
-//const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://192.168.0.19:3000/api';
-
+const API_URL = 'https://t15kvnp6-3000.brs.devtunnels.ms/api';
 
 // Configurar instancia de axios con la URL base
 const apiClient = axios.create({
@@ -42,8 +33,6 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Token expirado o inválido
       await AsyncStorage.removeItem('token');
-      // Opcional: redirigir al usuario a la pantalla de inicio de sesión
-      // Puedes usar la lógica de navegación aquí si tienes acceso
     }
     return Promise.reject(error);
   }

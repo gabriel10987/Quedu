@@ -4,7 +4,8 @@ class QueduServices {
 
     static async getLastQuedu(userId) {
         try {
-            const response = await apiClient.post('/user/lastQuedu', { userId });
+            // const response = await apiClient.post('/user/lastQuedu', { userId });
+            const response = await apiClient.get(`/user/${userId}/lastQuedu`);
             return response.data;
         } catch (error) {
             throw this.handleError(error);  // Llamada al método handleError
@@ -35,7 +36,7 @@ class QueduServices {
 
     static async updateQuedu(userId, queduId, solved, successPercentaje, attempt) {
         try {
-            const response = await apiClient.put('/quedu/update', { userId, queduId, solved, successPercentaje, attempt });
+            const response = await apiClient.put('user/quedu/update', { userId, queduId, solved, successPercentaje, attempt });
             return response.data;
         } catch (error) {
             throw this.handleError(error);
@@ -60,9 +61,6 @@ class QueduServices {
     static async getPersonalQueduById(userId, courseId, queduId) {
         try {
             const response = await apiClient.get(`/user/quedu/${userId}/${courseId}/${queduId}`);
-            console.log("------------------------------------------------------");
-            console.log("mi respuesta de mi quedu solicitado: ", response.data);
-            console.log("------------------------------------------------------");
             return response.data;
         } catch (error) {
             throw this.handleError(error);

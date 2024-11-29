@@ -6,10 +6,6 @@ import Colors from '../../src/colors';
 import Quedu from './Quedu'; 
 
 const Course = ({ course }) => {
-    const handlePress = (itemTitle) => {
-        Alert.alert(`Has presionado el botón de ${itemTitle}`);
-    };
-
     return (
         <View style={styles.courseContainer}>
             <View style={styles.headerContainer}>

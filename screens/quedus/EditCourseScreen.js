@@ -10,7 +10,7 @@ import CreateCourseService from '../../src/api/CreateCourseService';
 const EditCourseScreen = ({ navigation, route }) => {
   
   const { course } = route.params;
-  console.log("Course received:", course);
+  console.log("Course received:", course); //debug
 
   const [courseName, setCourseName] = useState(course?.name || '');
   const [isLoading, setIsLoading] = useState(false);

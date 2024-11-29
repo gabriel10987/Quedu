@@ -24,7 +24,7 @@ class CommunityServices {
         try {
             // Cambié la URL para incluir el ID en la ruta
             // const response = await apiClient.get(`/community/${communityId}`); // El ID ahora se pasa en la URL
-            const response = await apiClient.post('/community', {communityId}); // El ID ahora se pasa en la URL
+            const response = await apiClient.get(`/community/${communityId}`); 
             return response.data;
         } catch (error) {
             throw this.handleError(error);

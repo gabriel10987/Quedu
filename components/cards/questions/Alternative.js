@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, StyleSheet, View } from 'react-native';
 import colors from "../../../src/colors";
 
-export const Alternative = ({ text, onSelect, selected, style, disabled, correct }) => {
+export const Alternative = ({ text, onSelect, selected, disabled, correct }) => {
   const getStyles = () => {
     if (disabled) {
       if (correct) return styles.correctAnswer;

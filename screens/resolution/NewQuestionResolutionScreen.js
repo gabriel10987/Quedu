@@ -26,12 +26,10 @@ const NewQuestionResolutionScreen = ({
 
   const { courseId, queduId  } = route.params; // Recupera los parámetros pasados // quedu id dinamico
 
-  //const queduId = '67394336fa172e2c21a87980';
-
   useEffect(() => {
     const fetchQuedu = async () => {
       try {
-        const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
+        const userId = await UserService.getUserId(); 
         const quedu = await QueduServices.getPersonalQueduById(userId, courseId, queduId);
         console.log("userId entregado: ", userId, " QueduId entregado: ", queduId);
         console.log("Imprimiendo denuevo mi quedu obetenido: ", quedu);

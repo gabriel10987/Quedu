@@ -44,8 +44,6 @@ const CourseListScreen = ({ navigation }) => {
         <Section
           name="Todos los Cursos"
           color={colors.lightBlue}
-          icon1="bookmark"
-          icon2="arrow-up"
           onItemPress={handleCoursePress} 
           data={courses}
           section="Cursos"

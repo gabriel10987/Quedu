@@ -6,10 +6,8 @@ import UserService from './src/api/UserServices'; // Asegúrate de importar User
 import { AuthContext } from './context/AuthContext';
 
 import MyQuedusScreen from './screens/quedus/MyQuedusScreen';
-import QuestionResolutionScreen from './screens/resolution/QuestionResolutionScreen';
 import CreateCourseScreen from './screens/CreateCourseScreen';
 import HomeStack from './navigation/HomeStack';
-import CreateQueduScreen from './screens/quedus/CreateQueduScreen';
 import CommunitiesScreen from './screens/communities/CommunitiesScreen';
 import RankingScreen from './screens/ranking/RankingScreen';
 
