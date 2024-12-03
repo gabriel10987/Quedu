@@ -3,14 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
 // URL base para el API
-//const API_URL = 'http://10.0.2.2:3000/api'; // URL para emulador Android
-const API_URL = 'https://7hj4bhc2-3000.brs.devtunnels.ms/api'; // Cambia según tu entorno
-// Definir la URL base dependiendo del entorno
-
-//const API_URL = Platform.OS === 'web' ? 'https://gq7cwz38-3000.brs.devtunnels.ms/api' : 'https://gq7cwz38-3000.brs.devtunnels.ms/api';
-
-//const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://10.0.2.2:3000/api';
-//const API_URL = Platform.OS === 'web' ? 'http://localhost:3000/api' : 'http://192.168.0.19:3000/api';
+const API_URL = 'http://18.217.86.255:3000/api'; // Cambia según tu entorno
 
 
 // Configurar instancia de axios con la URL base
