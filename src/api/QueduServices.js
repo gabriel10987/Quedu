@@ -42,12 +42,32 @@ class QueduServices {
         }
     }
 
+    static async getAllQuedusFormatted(userId){
+        try {
+            const response = await apiClient.get(`/user/allQuedus/${userId}`);
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
+
     // Define el método handleError
     static handleError(error) {
         console.error("Error en la solicitud:", error);
         return new Error("Ocurrió un error al procesar la solicitud.");
     }
-}
 
+    static async getPersonalQueduById(userId, courseId, queduId) {
+        try {
+            const response = await apiClient.get(`/user/quedu/${userId}/${courseId}/${queduId}`);
+            console.log("------------------------------------------------------");
+            console.log("mi respuesta de mi quedu solicitado: ", response.data);
+            console.log("------------------------------------------------------");
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
+}
 
 export default QueduServices;

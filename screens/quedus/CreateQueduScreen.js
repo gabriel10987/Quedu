@@ -10,28 +10,7 @@ import colors from '../../src/colors';
 import QueduServices from '../../src/api/QueduServices';
 import UserService from '../../src/api/UserServices';
 import CreateCourseService from '../../src/api/CreateCourseService';
-/*
-// puede servir para usar ids de cursos o algo asi
-const optionsCourse = [
-    { label: 'Matemática', value: '1' },
-    { label: 'Lenguaje', value: '2' },
-    { label: 'Programación', value: '3' },
-];
 
-const optionsNumberQuestion = [
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-];
-*/
-
-// datos estaticos pasando el valor(Value)
-/*
-const optionsCourse = [
-    { label: 'Matemática', value: 'Matemática' },
-    { label: 'Lenguaje', value: 'Lenguaje' },
-    { label: 'Programación', value: 'Programación' },
-];
-*/
 const optionsNumberQuestion = [
     { label: '1 pregunta', value: '1' },
     { label: '2 preguntas', value: '2' },
@@ -96,10 +75,6 @@ const CreateQueduScreen = ({navigation, route}) => {
     const handleFinalizarPress = async () => {
         if (isButtonEnabled && selectedDoc) {
             const userIdGetted = await UserService.getUserId();
-
-            // Obtener el label correspondiente al value seleccionado para course y questions
-            //const selectedCourseLabel = optionsCourse.find(option => option.value === selectedCourse)?.label;
-            //const selectedQuestionsLabel = optionsNumberQuestion.find(option => option.value === selectedQuestions)?.label;
 
             const formData = new FormData();
             formData.append('userId', userIdGetted);
@@ -192,6 +167,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'Quicksand-Regular',
         color: colors.darkBlue,
+        marginHorizontal: 24,
     },
     dropdownWithIcon: {
         width: '60%',

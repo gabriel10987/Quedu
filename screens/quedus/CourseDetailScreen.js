@@ -1,33 +1,43 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import AppBar from "../../components/AppBar";
 import { Section } from "../../components/cards/section/Section";
 import colors from "../../src/colors";
+import QuedusCourseService from "../../src/api/QuedusCourseService"; 
+import UserService from "../../src/api/UserServices";
 import { ScrollView } from "react-native-gesture-handler";
 
 const CourseDetailScreen = ({ route, navigation }) => {
-
   const { course } = route.params;
   const [quedus, setQuedus] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   useEffect(() => {
-    const quedusData = [
-      { name: "Quedu 1", date: "02/04" },
-      { name: "Quedu 2", date: "03/04" },
-      { name: "Quedu 3", date: "04/05" },
-      { name: "Quedu 4", date: "05/07" },
-      { name: "Quedu 5", date: "05/07" },
-      { name: "Quedu 6", date: "05/07" },
-      { name: "Quedu 7", date: "05/07" },
-      { name: "Quedu 8", date: "05/07" },
-      { name: "Quedu 9", date: "05/07" },
-      { name: "Quedu 10", date: "05/07" },
-      { name: "Quedu 11", date: "05/07" },
-      { name: "Quedu 12", date: "05/07" },
-      { name: "Quedu 13", date: "05/07" },
-    ];
-    setQuedus(quedusData);
-  }, []);
+    const fetchQuedus = async () => {
+      try {
+        const userId = await UserService.getUserId();  
+        if (!userId) {
+          setErrorMessage("No se pudo obtener el ID del usuario.");
+          return;
+        }
+
+        const fetchedCourse = await QuedusCourseService.getQuedusByCourseId(userId, course._id);
+        
+        console.log("Datos de Quedus recibidos: ", fetchedCourse);
+        
+        if (fetchedCourse && Array.isArray(fetchedCourse.quedus) && fetchedCourse.quedus.length > 0) {
+          setQuedus(fetchedCourse.quedus);  
+        } else {
+          setErrorMessage("Este curso no tiene quedus creados.");
+        }
+      } catch (error) {
+        console.error("Error al cargar los quedus: ", error);
+        setErrorMessage("Hubo un error al cargar los quedus.");
+      }
+    };
+
+    fetchQuedus();
+  }, [course]);
 
   return (
     <View style={styles.container}>
@@ -39,6 +49,7 @@ const CourseDetailScreen = ({ route, navigation }) => {
           icon1="bookmark"
           icon2="arrow-up"
           data={quedus}
+          section="Quedus"
         />
       </ScrollView>
     </View>
@@ -55,6 +66,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     paddingHorizontal: 20,
+  },
+  errorMessage: {
+    fontSize: 16,
+    color: colors.red,
+    marginTop: 20,
   },
 });
 

@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import AppBar from "../../components/AppBar";
 import { Section } from "../../components/cards/section/Section";
 import colors from "../../src/colors";
 import CreateCourseService from "../../src/api/CreateCourseService";
+import UserService from "../../src/api/UserServices";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CourseListScreen = ({ navigation }) => {
   const [courses, setCourses] = useState([]);
 
   const fetchAllCourses = async () => {
     try {
-      const userId = "6731625943a8b1e4299b732d"; 
+      const userId = await UserService.getUserId(); // Llamamos a la función asíncrona
       const userCourses = await CreateCourseService.getCoursesByUserId(userId);
   
       // Ordenar los cursos por el campo `_id` en orden descendente
@@ -20,11 +22,16 @@ const CourseListScreen = ({ navigation }) => {
       console.error("Error al obtener todos los cursos:", error);
     }
   };
-  
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
+      fetchAllCourses();
+    }, [])
+  );
+
+  const handleCourseDeleted = () => {
     fetchAllCourses();
-  }, []);
+  }
 
   const handleCoursePress = (course) => {
     navigation.navigate("CourseDetail", { course });
@@ -41,6 +48,8 @@ const CourseListScreen = ({ navigation }) => {
           icon2="arrow-up"
           onItemPress={handleCoursePress} 
           data={courses}
+          section="Cursos"
+          onCourseDeleted={handleCourseDeleted}
         />
       </ScrollView>
     </View>

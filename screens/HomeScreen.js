@@ -38,7 +38,44 @@ const HomeScreen = ({ navigation }) => {
 
   const [quedus, setQuedus] = useState([]);
   const [courses, setCursos] = useState([]);
+  
 
+  const fetchCoursesAndQuedus = async () => {
+    try {
+      const userIdGetted = await UserService.getUserId();
+      const data = await UserService.getCoursesAndQuedus(userIdGetted);
+      console.log("********** mis nuevos datos *******************");
+      console.log(data);
+      console.log("***********************************************");
+
+      // Obtener los 4 cursos más recientes
+      const sortedCourses = data.sort((a, b) => {
+        const lastA = a.personalQuedus.length
+          ? new Date(a.personalQuedus[a.personalQuedus.length - 1].createdAt)
+          : 0;
+        const lastB = b.personalQuedus.length
+          ? new Date(b.personalQuedus[b.personalQuedus.length - 1].createdAt)
+          : 0;
+        return lastB - lastA; // Orden descendente por la fecha más reciente
+      });
+
+      const recentCourses = sortedCourses.slice(0, 4);
+      setCursos(recentCourses);
+
+      // Obtener los 4 quedus más recientes de todos los cursos
+      const allQuedus = data
+        .flatMap(course => course.personalQuedus) // Combina todos los quedus
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Orden descendente
+
+      const recentQuedus = allQuedus.slice(0, 4);
+      setQuedus(recentQuedus);
+
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  }
+
+  /*
   const fetchCourses = async () => {
     try {
 
@@ -57,18 +94,24 @@ const HomeScreen = ({ navigation }) => {
       console.error("Error al obtener los cursos:", error);
     }
   };
+  */
+
+  const handleCourseDeleted = () => {
+    fetchCoursesAndQuedus();
+  }
 
   useFocusEffect(
     useCallback(() => {
-      fetchCourses(); // Llamar a fetchCourses cada vez que la pantalla recibe foco
+      //fetchCourses(); // Llamar a fetchCourses cada vez que la pantalla recibe foco
+      fetchCoursesAndQuedus();
     }, [])
   );
-
+  /*
   useEffect(() => {
     const quedusData = [];
     setQuedus(quedusData);
   }, []);
-
+  */
   const handleCoursePress = (course) => {
     navigation.navigate("CourseDetail", { course });
   };
@@ -114,6 +157,7 @@ const HomeScreen = ({ navigation }) => {
           section="Cursos"
           onIcon1Press={handleCreateCourse}
           onIcon2Press={handleCourseListPress}
+          onCourseDeleted={handleCourseDeleted}
         />
       </ScrollView>
     </View>

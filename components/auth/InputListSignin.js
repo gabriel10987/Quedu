@@ -55,7 +55,7 @@ const InputListSignin = ({ username, setUsername, password, setPassword, handleL
         style={styles.input}  
         value={password} 
         onChangeText={setPassword}
-        secureTextEntry
+        isPassword={true}
       />
       <Button 
         title={loading ? "Ingresando..." : "Ingresar"}

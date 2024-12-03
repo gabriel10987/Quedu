@@ -94,6 +94,15 @@ class UserService {
     }
   }
 
+  static async getCoursesAndQuedus(userId){
+    try {
+      const response = await apiClient.get(`/user/quedus/${userId}`);
+      return response.data;
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
   // Manejo de errores centralizado
   static handleError(error) {
     if (error.response) {
